@@ -10,22 +10,32 @@
 	
 	<?php
 
-		// sign up message with session
+	// sign up message with session
 	session_start();
 	$signupStatus = $_SESSION['signupStatus'];
-	
+
 
 	$c_id = $c_pass = "";
 
-		// try to auto login from cookies id, pass if have.
-		// remove pass from cookies later.-----------
-	if(isset($_COOKIE['c_id']) and isset($_COOKIE['c_pass']))
+	// try to auto login from cookies id, pass if have.
+	if(isset($_COOKIE['c_id']))
 	{
 		$c_id = $_COOKIE['c_id'];
-		$c_pass = $_COOKIE['c_pass'];
+
+		// fetch password from json file.
+		$fetch_data = json_decode(file_get_contents("signup_info.json"));
+		foreach ($fetch_data as $key  )
+		{
+			if($key->Username == $c_id)
+			{
+				$c_pass = $key->Password;
+ 			}
+
+		}
+
 	}	 
 
-		// login failed message with session
+	// login failed message with session
 	$loginFailed = $_SESSION['loginFailed'];
 		session_destroy(); // destroy for delete session message.
 		

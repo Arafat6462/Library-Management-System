@@ -12,6 +12,8 @@
  	<?php
 
  	$signupSuccess = $signupFailed = "";
+    $flag = false;
+
 
  	if ($_SERVER['REQUEST_METHOD'] === "POST")
  	{
@@ -31,6 +33,18 @@
  			// echo $set_password;
 
 
+            // empty validation for required field
+            if(empty($Firstname=basic_validation($_POST['Firstname']))) $flag = true;
+            if(empty($Lastname=basic_validation($_POST['Lastname']))) $flag = true;
+            if(empty($Gender=basic_validation($_POST['Gender']))) $flag = true;
+            if(empty($DOB=basic_validation($_POST['DOB']))) $flag = true;
+            if(empty($phone=basic_validation($_POST['phone']))) $flag = true;
+            if(empty($Email=basic_validation($_POST['Email']))) $flag = true;
+            if(empty($Username=basic_validation($_POST['Username']))) $flag = true;
+            if(empty($Password=basic_validation($_POST['Password']))) $flag = true;
+
+
+
 
  			$array = array( "Firstname"=>basic_validation($_POST['Firstname']),"Lastname"=>basic_validation($_POST['Lastname']),
  				"Gender"=>basic_validation($_POST['Gender']),"DOB"=>basic_validation($_POST['DOB']),
@@ -41,24 +55,25 @@
  			);
 
 
- 			$res = write($array);
+            // if pass php validation then can write file.
+             if(!$flag)
+             $res = write($array);
 
-            // if file write successful
-            if($res) 
-            {
+              // if file write successful
+             if($res) 
+             {
                 $signupSuccess = "Sign-Up succesfull. Please log-in";
 
-                // pass sign up info to login by session
+                  // pass sign up info to login by session
                 session_start();
                 $_SESSION['signupStatus'] = $signupSuccess;
                 header("location:login.php"); 
 
-
             }
 
-            else $signupFailed = "Sign-Up Failed";
+            else{ $signupFailed = "Sign-Up Failed";}
 
-            
+
         }
     }
 
@@ -125,7 +140,7 @@
            <input type="date" id="DOB" name="DOB" required><br>
 
            Religion:<br>
-           <select name="Religion" required > 
+           <select name="Religion" > 
               <option value="" name="" ></option> 
               <option value="islam" name="Religion" >islam</option> 
               <option value="hindu" name="Religion" >hindu</option> 

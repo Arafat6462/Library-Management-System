@@ -19,7 +19,7 @@ if(isset($_POST['login'])) // only can enter this page if login button pressed.
 
 
    	// fetch id password from json file.
-	$fetch_data = json_decode(file_get_contents("signup_info.json")); 
+	$fetch_data = json_decode(file_get_contents("../Model/signup_info.json")); 
 	foreach ($fetch_data as $key )
 	{
 		if($key->Username == $f_id)

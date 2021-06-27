@@ -23,7 +23,7 @@
 		$c_id = $_COOKIE['c_id'];
 
 		// fetch password from json file.
-		$fetch_data = json_decode(file_get_contents("signup_info.json"));
+		$fetch_data = json_decode(file_get_contents("../Model/signup_info.json"));
 		foreach ($fetch_data as $key  )
 		{
 			if($key->Username == $c_id)

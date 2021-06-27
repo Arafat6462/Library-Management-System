@@ -6,19 +6,21 @@
 	<title>welcome</title>
 </head>
 <body>
-	<h1>Welcome</h1>
-
+ 
 	<?php
+
+	// header file.
+	include('../View/header.html');
+
 	session_start();
 	echo "welcome  ".$_SESSION['s_id']. $_SESSION['s_pass'];
-	echo "<br><a href = 'logout.php'>Logout</a>";
-
+ 
 
 
 
  		 
 	// fetch password from json file. and update.
-	$fetch_data = json_decode(file_get_contents("signup_info.json"));
+	$fetch_data = json_decode(file_get_contents("../Model/signup_info.json"));
 
 	foreach ($fetch_data as $key )
 	{
@@ -33,11 +35,12 @@
 	
 
 
- 	echo "<br><a href = 'changePassword.php'>Change password</a>";
- 
+ 	 
 
 
- 
+ 	// footer file.
+	include('../View/footer.html');
+	
 
 	?>
 	

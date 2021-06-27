@@ -89,7 +89,7 @@
  		// write in data.json
     function write($content)
     {
-        $signInInfo = json_decode(file_get_contents("signup_info.json"));
+        $signInInfo = json_decode(file_get_contents("../Model/signup_info.json"));
 
  			 // add new value on associative array formate data.json
         array_push($signInInfo, $content);
@@ -97,7 +97,7 @@
         $signInInfo = json_encode($signInInfo);
 
 
-        $filePointer = fopen("signup_info.json", "w");	
+        $filePointer = fopen("../Model/signup_info.json", "w");	
         $status = fwrite($filePointer, $signInInfo."\n");
 
         fclose($filePointer);

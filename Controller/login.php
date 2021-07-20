@@ -44,18 +44,35 @@
 		<form action="loginValidation.php" method = "POST">
 			<span style="color: green"><?php echo $signupStatus; ?></span><br><br>
 			
+		<table>
+      	 <tbody>
 			
-			<label for="Username">Username:</label>
-			<input type="text" id="Username" name="Username" value="<?php echo $c_id ?>" required><br>
+			<tr>
+            <td><label for="Username">Username:</label></td>
+			<td><input type="text" id="Username" name="Username" value="<?php echo $c_id ?>" required></td>
+			</tr>
 
-			<label for="Password">Password:</label>
-			<input type="Password" id="Password" name="Password" value="<?php echo $c_pass ?>" required><br>
+			<tr>
+            <td><label for="Password">Password:</label></td>
+			<td><input type="Password" id="Password" name="Password" value="<?php echo $c_pass ?>" required></td>
+			</tr>
 
-			<br>
-			<input type="checkbox" name="remember" id="remember" value="1">
-			<label for="remember">Remember Me</label><br>
+ 			<tr>
+            <td></td>
+            <td><input type="checkbox" name="remember" id="remember" value="1">
+			<label for="remember">Remember Me</label></td>
+			</tr>
 
-			<input type="submit" name="login" value="Log-in">
+
+			<tr><td></td></tr>
+
+			<tr>
+            <td></td>
+            <td><span style="float: right;"><input type="submit" name="login" value="Log-in"></span></td>
+       		</tr>
+
+		</tbody>
+	</table>
 
 			<span style="color: red"><?php echo $loginFailed; ?></span>
 			<span style="color: green"><?php echo "<br><br><br>click here to <a href = 'signup.php'>Sign-up</a>" ?></span>

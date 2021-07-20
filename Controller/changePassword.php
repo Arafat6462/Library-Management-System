@@ -6,6 +6,8 @@
  	<title>Change pasword</title>
  </head>
  <body>
+      
+
 
  	<?php
 
@@ -23,12 +25,12 @@
  	if ($_SERVER['REQUEST_METHOD'] === "POST")
  	{
 
- 		if(empty($f_pass = basic_validation($_POST['NewPassword']))) $flag = true;
  		if(empty($f_oldPass = basic_validation($_POST['OldPassword']))) $flag = true;
+ 		if(empty($f_pass = basic_validation($_POST['NewPassword']))) $flag = true;
  		if(empty($f_newPass = basic_validation($_POST['NewPasswordAgain']))) $flag = true;
 
 
- 		if($f_pass != $f_newPass and flag)
+ 		if($f_pass != $f_newPass or $flag)
  		{	
  			$failed = "Password dose not match";
  		}
@@ -100,34 +102,49 @@
 
 <form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST">
 
- <h3>
-    <fieldset>
-       <legend>Change Password:</legend>
-
-       <label for="Password">Password:<span style="color: red"><?php echo "*"; ?></span></label>
-       <input type="Password" id="OldPassword" name="OldPassword" placeholder="Old Password" required>
-       <br>
-
-       <label for="Password">Password:<span style="color: red"><?php echo "*"; ?></span></label>
-       <input type="Password" id="NewPassword" name="NewPassword" placeholder="New Password" required>
-       <span style="color: red"><?php echo $failed; ?></span>
-       <br>
-
-       <label for="PasswordAgain">Password:<span style="color: red"><?php echo "*"; ?></span></label>
-       <input type="Password" id="NewPasswordAgain" name="NewPasswordAgain" placeholder="Re-Enter New Password" required><br>
+ <h2>Change pasword</h2>
+     <style>
+   .center  {
+    margin-left: auto;
+    margin-right: auto;}
+   </style>
 
 
+    <table class="center">
 
-   </fieldset>
+       <tbody>
+
+      <tr>
+       <td><label for="Password">Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
+       <td><input type="Password" id="OldPassword" name="OldPassword" placeholder="Old Password" required></td>
+       </tr>
+
+
+       <tr>
+       <td><label for="Password">New Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
+       <td><input type="Password" id="NewPassword" name="NewPassword" placeholder="New Password" required>
+       <span style="color: red"><?php echo $failed; ?></span></td>
+       </tr>
+
+       <tr>
+       <td><label for="PasswordAgain">New Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
+       <td><input type="Password" id="NewPasswordAgain" name="NewPasswordAgain" placeholder="Re-Enter New Password" required></td>
+       </tr>
+
+       <tr><td></td>
+       <td><span style="float: right;"><input type="submit" value="Change Pasword"></span></td>
+       <td> <span style="color: green"><?php echo $changePassSuccess; ?></span></td>
+       <td> <span style="color: red"><?php echo $changePassFail; ?></span></td>
+
+
+    </tbody>
+ </table>
+
+ 
 
 
 
-   <br>
-   <input type="submit" value="Change Pasword">
-
-   <span style="color: green"><?php echo $changePassSuccess; ?></span>
-   <span style="color: red"><?php echo $changePassFail; ?></span>
-   <span style="color: green"><?php echo "<br><br><br>click here to <a href = 'welcome.php'>Go Back</a>" ?></span>
+   <span style="color: green;"><?php echo "<br><br><br>click here to <a href = 'welcome.php'>Go Back</a>" ?></span>
 
 
 

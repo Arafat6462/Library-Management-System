@@ -51,7 +51,7 @@
  				"Religion"=>basic_validation($_POST['Religion']),"presentaddress"=>basic_validation($_POST['presentaddress']),
  				"Permanentaddress"=>basic_validation($_POST['Permanentaddress']),"phone"=>basic_validation($_POST['phone']),
  				"Email"=>basic_validation($_POST['Email']),"linked"=>basic_validation($_POST['linked']),
- 				"Username"=>basic_validation($_POST['Username']),"Password"=>basic_validation($_POST['Password']),
+ 				"Username"=>basic_validation($_POST['Username']),"Password"=>basic_validation($_POST['Password'])
  			);
 
 
@@ -118,34 +118,55 @@
         <fieldset>
            <legend>Basic Information:</legend>
 
-           <label for="fname">First Name:<span style="color: red"><?php echo "*"; ?></span></label>
-           <input type="text" id="fname" name="Firstname" required><br>
+      <table>
+       <tbody>
 
-           <label for="lname">Last name:<span style="color: red"><?php echo "*"; ?></span> </label>
-           <input type="text" id="lname" name="Lastname" required><br>
+         <tr>
+           <td><label for="fname">First Name:<span style="color: red"><?php echo "*"; ?></span></label></td>
+           <td><input type="text" id="fname" name="Firstname" required></td>
+        </tr>
 
-
-           Select Gender:<span style="color: red"><?php echo "*"; ?></span><br>
-           <input type="radio" id="Male" name="Gender" value="Male" required>
-           <label for="Male">Male</label> <br>
-
-           <input type="radio" id="Female" name="Gender" value="Female">
-           <label for="Female">Female</label> <br>
-
-           <input type="radio" id="Other" name="Gender" value="Other">
-           <label for="Other">Other</label><br>
+         <tr>
+           <td><label for="lname">Last name:<span style="color: red"><?php echo "*"; ?></span> </label></td>
+           <td><input type="text" id="lname" name="Lastname" required></td>
+        </tr>
 
 
-           <label for="DOB">DOB:<span style="color: red"><?php echo "*"; ?></span></label>
-           <input type="date" id="DOB" name="DOB" required><br>
+           <tr>
+           <td> Select Gender:<span style="color: red"><?php echo "*"; ?></span></td>
+           <td><input type="radio" id="Male" name="Gender" value="Male" required>
+           <label for="Male">Male</label>  
+           
 
-           Religion:<br>
-           <select name="Religion" > 
-              <option value="" name="" ></option> 
+         
+           <input type="radio" id="Female" name="Gender" value="Female"> 
+           <label for="Female">Female</label> 
+        
+
+         
+           <input type="radio" id="Other" name="Gender" value="Other"> 
+           <label for="Other">Other</label></td>
+           </tr>
+
+
+         <tr>
+           <td><label for="DOB">DOB:<span style="color: red"><?php echo "*"; ?></span></label></td>
+           <td><input type="date" id="DOB" name="DOB" required></td>
+        </tr>
+
+         <tr>
+           <td>Religion:</td>
+           <td><select name="Religion" > 
+             <!--  <option value="" name="" ></option>  -->
               <option value="islam" name="Religion" >islam</option> 
               <option value="hindu" name="Religion" >hindu</option> 
               <option value="christian" name="Religion" >christian</option> 
-          </select>
+          </select></td>
+       </tr>
+
+       </tbody>
+    </table>
+
       </fieldset>
       <br><br><br>
 
@@ -153,50 +174,75 @@
 
 
       <fieldset>
-       <legend>Contact Information:</legend>
+        <legend>Contact Information:</legend>
 
 
-       <label for="presentaddress">presentaddress:</label>
-       <textarea id="presentaddress" name="presentaddress" rows="2" cols="20"></textarea><br>
+        <table>
+           <tbody>
 
-       <label for="Permanentaddress">Permanentaddress:</label>
-       <textarea id="Permanentaddress" name="Permanentaddress" rows="2" cols="20"></textarea><br>
+              <tr>
+                 <td><label for="presentaddress">presentaddress:</label></td>
+                 <td><textarea id="presentaddress" name="presentaddress" rows="2" cols="20"></textarea></td>
+              </tr>
 
-
-       <label for="phone">phone:<span style="color: red"><?php echo "*"; ?> </label>
-          <input type="tel" id="phone" name="phone" required=""><br>
-
-          <label for="Email">Email:<span style="color: red"><?php echo "*"; ?></span> </label>
-          <input type="Email" id="Email" name="Email" required><br>
-
-          <label for="linked">Personal Website linked : </label>
-          <input type="url" id="linked" name="linked"><br>
+              <tr>
+                <td><label for="Permanentaddress">Permanentaddress:</label></td>
+                <td><textarea id="Permanentaddress" name="Permanentaddress" rows="2" cols="20"></textarea></td>
+             </tr>
 
 
-      </fieldset>
+             <tr>
+               <td><label for="phone">phone:<span style="color: red"><?php echo "*"; ?> </label></span>
+               <td><input type="tel" id="phone" name="phone" required=""></td>
+              </tr>
+
+              <tr>
+                <td><label for="Email">Email:<span style="color: red"><?php echo "*"; ?></span> </label></td>
+                <td><input type="Email" id="Email" name="Email" required></td>
+             </tr>
+
+             <tr>
+                <td><label for="linked">Personal Website linked : </label></td>
+                <td><input type="url" id="linked" name="linked"></td>
+             </tr>
+          </tbody>
+       </table>
+
+
+    </fieldset>
 
 
       <br><br><br>
 
 
       <fieldset>
-          <legend>Account Information:</legend>
+        <legend>Account Information:</legend>
+
+        <table>
+         <tbody>
+
+            <tr>
+              <td><label for="Username">Username:<span style="color: red"><?php echo "*"; ?></span></label></td>
+              <td><input type="text" id="Username" name="Username" placeholder="Username" required></td>
+           </tr>
+
+           <tr>
+             <td><label for="Password">Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
+             <td><input type="Password" id="Password" name="Password" placeholder="Enter Password" required>
+              <span style="color: red"><?php echo $failed; ?></span></td>
+           </tr>
+
+           <tr>
+             <td><label for="PasswordAgain">Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
+             <td><input type="Password" id="PasswordAgain" name="PasswordAgain" placeholder="Re-Enter Password" required></td>
+          </tr>
+
+       </tbody>
+    </table>
 
 
-          <label for="Username">Username:<span style="color: red"><?php echo "*"; ?></span></label>
-          <input type="text" id="Username" name="Username" placeholder="Username" required><br>
 
-          <label for="Password">Password:<span style="color: red"><?php echo "*"; ?></span></label>
-          <input type="Password" id="Password" name="Password" placeholder="Enter Password" required>
-          <span style="color: red"><?php echo $failed; ?></span>
-          <br>
-
-          <label for="PasswordAgain">Password:<span style="color: red"><?php echo "*"; ?></span></label>
-          <input type="Password" id="PasswordAgain" name="PasswordAgain" placeholder="Re-Enter Password" required><br>
-
-
-
-      </fieldset>
+ </fieldset>
 
       <br>
       <input type="submit" value="Sign-up">

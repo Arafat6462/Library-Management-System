@@ -13,7 +13,7 @@
 	include('../View/header.html');
 
 	session_start();
-	echo "welcome  ".$_SESSION['s_id']. $_SESSION['s_pass'];
+	echo "welcome  ".$_SESSION['s_id'];
  
 
 

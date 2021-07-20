@@ -46,7 +46,7 @@
    			}
 		}
 		if($flag1)$bookfound = "Book Found";
-		else $booknotfound = "Book Not Found.";
+		// else $booknotfound = "Book Not Found.";
 
 	}
 
@@ -72,7 +72,7 @@
    			}
 		}
 		if($flag2)$studentfound = "Student Found";
-		else if($flag3)$studentnotfound = "Student Not Found";
+		// else if($flag3)$studentnotfound = "Student Not Found";
 
 	}
 
@@ -145,15 +145,13 @@
  			<td><label for="bookid">Search Book by Id to borrow :</label></td>
 			<td><input type="text" id="bookid" name="bookid" value="<?php echo $bookid ?>"></td>
  			<td><span style="color: green"><?php echo $bookfound; ?></span>
-			<span style="color: red"><?php echo $booknotfound; ?></span>
-			<span style="color: red"><?php echo $booklim; ?></span></td>
+ 			<span style="color: red"><?php echo $booklim; ?></span></td>
 		</tr>
 		<tr>
  			<td><label for="bookid">Search Student by Id to borrow :</label>
 			<td><input type="text" id="studentid" name="studentid" value="<?php echo $studentid ?>"></td>
  			<td><span style="color: green"><?php echo $studentfound; ?></span>
-			<span style="color: red"><?php echo $studentnotfound; ?></span>
-			<span style="color: red"><?php echo $studentlim; ?></span></td>
+ 			<span style="color: red"><?php echo $studentlim; ?></span></td>
 		</td>
 
 		<tr>

@@ -10,6 +10,7 @@
 	
 	<?php
 
+
 	// sign up message with session
 	session_start();
 	$signupStatus = $_SESSION['signupStatus'];
@@ -34,14 +35,90 @@
 		}
 
 	}	 
+ 
+	session_destroy(); // destroy for delete session message.
 
-	// login failed message with session
-	$loginFailed = $_SESSION['loginFailed'];
-		session_destroy(); // destroy for delete session message.
+	// use as database
+	$j_id = "";
+	$j_pass = "";
+	$loginFailed = "";
+	$isValid = true;
+	$f_id = $f_pass = "";
+	$f_idErr = $f_passErr = "";
+
+
+
+if ($_SERVER['REQUEST_METHOD'] === "POST")
+{
+	// get data from html form	
+	$f_id = $_POST['Username'];
+	$f_pass = $_POST['Password'];
+
+	if(empty($f_id))
+       {
+          $f_idErr = "username can not be empty";
+          $isValid = false;
+       }
+	if(empty($f_pass))
+       {
+          $f_passErr = "password can not be empty";
+          $isValid = false;
+       }
+
+       $f_id = basic_validation($f_id);
+       $f_pass = basic_validation($f_pass);
+
+       if($isValid)
+       {
+ 	       	// fetch id password from json file.
+			$fetch_data = json_decode(file_get_contents("../Model/signup_info.json")); 
+			foreach ($fetch_data as $key )
+			{
+				if($key->Username == $f_id)
+				{
+					$j_id = $key->Username;
+					$j_pass = $key->Password;
+				}
+			}
+
+			// check input with database.
+			if($f_id == $j_id and $f_pass == $j_pass)
+			{
+				// if correct and remember store in cookies
+				if(isset($_POST['remember']))
+				{
+					setcookie('c_id', $f_id, time()+60*60);
+		 			
+				}
+
+				// log-in to welcome with id,pass
+				session_start();
+				$_SESSION['s_id'] = $f_id;
+				$_SESSION['s_pass'] = $f_pass;
+				header("location:welcome.php"); 
+
+			}
+			else $loginFailed = "username or password is Invalid";
+			
+
+       }
+   	
+}
+
+	 // validate input
+    function basic_validation($data)
+    {
+        $data = trim($data);
+        $data = htmlspecialchars($data);
+        $data = stripcslashes($data);
+        return $data;
+    }
+ 
+?>
+
+
 		
-		?>
-		
-		<form action="loginValidation.php" method = "POST">
+		<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST">
 			<span style="color: green"><?php echo $signupStatus; ?></span><br><br>
 			
 		<table>
@@ -49,12 +126,14 @@
 			
 			<tr>
             <td><label for="Username">Username:</label></td>
-			<td><input type="text" id="Username" name="Username" value="<?php echo $c_id ?>" required></td>
+			<td><input type="text" id="Username" name="Username" value="<?php echo $c_id ?>">
+			<span style="color: red"> <?php echo $f_idErr; ?> </span></td>
 			</tr>
 
 			<tr>
             <td><label for="Password">Password:</label></td>
-			<td><input type="Password" id="Password" name="Password" value="<?php echo $c_pass ?>" required></td>
+			<td><input type="Password" id="Password" name="Password" value="<?php echo $c_pass ?>">
+			<span style="color: red"> <?php echo $f_passErr; ?> </span></td>
 			</tr>
 
  			<tr>

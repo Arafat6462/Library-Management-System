@@ -11,38 +11,129 @@
 
  	<?php
 
- 	$signupSuccess = $signupFailed = "";
-    $flag = false;
+ 	$signupSuccess = "";
+  $signupFailed = "";
+  $Password_not_match = "";
+  $isValid = true;
+
+  $Firstname = "";
+  $Lastname = "";
+  $Gender = "";
+  $DOB = "";
+  $Religion = "";
+  $Present_Address = "";
+  $Permanent_Address = "";
+  $Phone = "";
+  $Email = "";
+  $Website = "";
+  $Username = "";
+  $Password = "";
+
+  $FirstnameErr = $LastnameErr = $GenderErr = $DOBErr = "";
+  $ReligionErr = $Present_AddressErr = $Permanent_AddressErr = $PhoneErr = "";
+  $EmailErr = $WebsiteErr = $UsernameErr = $PasswordErr = "";
+ 
 
 
  	if ($_SERVER['REQUEST_METHOD'] === "POST")
  	{
+	 
+            $Firstname = $_POST['Firstname'];
+            $Lastname = $_POST['Lastname'];
+            $Gender = $_POST['Gender'];
+            $DOB = $_POST['DOB'];
+            $Religion = $_POST['Religion'];
+            $Present_Address = $_POST['Presentaddress'];
+            $Permanent_Address = $_POST['Permanentaddress'];
+            $Phone = $_POST['phone'];
+            $Email = $_POST['Email'];
+            $Website = $_POST['Website'];
+            $Username = $_POST['Username'];
+            $Password = $_POST['Password'];
 
+             if(empty($Firstname))
+               {
+                  $FirstnameErr = "Firstname can not be empty";
+                  $isValid = false;
+               }
+             if(empty($Lastname))
+               {
+                  $LastnameErr = "Lastname can not be empty";
+                  $isValid = false;
+               }
+             if(empty($Gender))
+               {
+                  $GenderErr = "Gender can not be empty";
+                  $isValid = false;
+               }
+             if(empty($DOB))
+               {
+                  $DOBErr = "DOB can not be empty";
+                  $isValid = false;
+               }
+             if(empty($Religion))
+               {
+                  $ReligionErr = "Religion can not be empty";
+                  $isValid = false;
+               }
+             if(empty($Present_Address))
+               {
+                  $Present_AddressErr = "presentaddress can not be empty";
+                  $isValid = false;
+               }
+             if(empty($Permanent_Address))
+               {
+                  $Permanent_AddressErr = "Permanentaddress can not be empty";
+                  $isValid = false;
+               }
+             if(empty($Phone))
+               {
+                  $PhoneErr = "phone can not be empty";
+                  $isValid = false;
+               }
+             if(empty($Email))
+               {
+                  $EmailErr = "Email can not be empty";
+                  $isValid = false;
+               }
+             if(empty($Website))
+               {
+                  $WebsiteErr = "Website can not be empty";
+                  $isValid = false;
+               }
+             if(empty($Username))
+               {
+                  $UsernameErr = "Username can not be empty";
+                  $isValid = false;
+               }
+             if(empty($Password))
+               {
+                  $PasswordErr = "Password can not be empty";
+                  $isValid = false;
+               }
 
- 		if($_POST['Password'] != $_POST['PasswordAgain'])
- 		{	
- 			$failed = "Password dose not match";
- 		}
- 		else
- 		{
- 			// $set_userName = $_POST['Username'];
- 			// $set_password = $_POST['Password'];
-
-			// add id,pass to file.txt
- 			// echo $set_userName;
- 			// echo $set_password;
-
+               if($_POST['Password'] != $_POST['PasswordAgain'])
+                  { 
+                    $Password_not_match = "Password dose not match";
+                    $isValid = false;
+                  }
+   
 
             // empty validation for required field
-            if(empty($Firstname=basic_validation($_POST['Firstname']))) $flag = true;
-            if(empty($Lastname=basic_validation($_POST['Lastname']))) $flag = true;
-            if(empty($Gender=basic_validation($_POST['Gender']))) $flag = true;
-            if(empty($DOB=basic_validation($_POST['DOB']))) $flag = true;
-            if(empty($phone=basic_validation($_POST['phone']))) $flag = true;
-            if(empty($Email=basic_validation($_POST['Email']))) $flag = true;
-            if(empty($Username=basic_validation($_POST['Username']))) $flag = true;
-            if(empty($Password=basic_validation($_POST['Password']))) $flag = true;
-
+            $Firstname=basic_validation($Firstname); 
+            $Lastname=basic_validation($Lastname); 
+            $Gender=basic_validation($Gender); 
+            $DOB=basic_validation($DOB); 
+            $Religion = basic_validation($Religion);
+            $Present_Address = basic_validation($Present_Address);
+            $Permanent_Address = basic_validation($Permanent_Address);
+            $Phone=basic_validation($Phone); 
+            $Email=basic_validation($Email); 
+            $Website=basic_validation($Website); 
+            $Username=basic_validation($Username); 
+            $Password=basic_validation($Password); 
+            
+            
 
 
 
@@ -56,25 +147,24 @@
 
 
             // if pass php validation then can write file.
-             if(!$flag)
-             $res = write($array);
-
-              // if file write successful
-             if($res) 
+            if($isValid)
              {
-                $signupSuccess = "Sign-Up succesfull. Please log-in";
+                 $res = write($array);
+              
+                  if($res) 
+                     {
+                        $signupSuccess = "Sign-Up succesfull. Please log-in";
 
-                  // pass sign up info to login by session
-                session_start();
-                $_SESSION['signupStatus'] = $signupSuccess;
-                header("location:login.php"); 
+                        session_start();
+                        $_SESSION['signupStatus'] = $signupSuccess;
+                        header("location:login.php"); 
+                     }
 
-            }
+                 else{ $signupFailed = "Sign-Up Failed";}
+               }
 
-            else{ $signupFailed = "Sign-Up Failed";}
 
-
-        }
+        
     }
 
 		// validate input
@@ -123,45 +213,47 @@
 
          <tr>
            <td><label for="fname">First Name:<span style="color: red"><?php echo "*"; ?></span></label></td>
-           <td><input type="text" id="fname" name="Firstname" required></td>
+           <td><input type="text" id="fname" name="Firstname" value="<?php echo $Firstname ?>">
+           <span style="color: red"> <?php echo $FirstnameErr; ?> </span></td>
         </tr>
 
          <tr>
            <td><label for="lname">Last name:<span style="color: red"><?php echo "*"; ?></span> </label></td>
-           <td><input type="text" id="lname" name="Lastname" required></td>
+           <td><input type="text" id="lname" name="Lastname"value="<?php echo $Lastname ?>">
+           <span style="color: red"> <?php echo $LastnameErr; ?> </span></td>
         </tr>
 
 
            <tr>
            <td> Select Gender:<span style="color: red"><?php echo "*"; ?></span></td>
-           <td><input type="radio" id="Male" name="Gender" value="Male" required>
+           <td><input type="radio" id="Male" name="Gender" value="Male">
            <label for="Male">Male</label>  
-           
-
-         
+          
            <input type="radio" id="Female" name="Gender" value="Female"> 
            <label for="Female">Female</label> 
-        
-
          
            <input type="radio" id="Other" name="Gender" value="Other"> 
-           <label for="Other">Other</label></td>
+           <label for="Other">Other</label>
+          <span style="color: red"> <?php echo $GenderErr; ?> </span></td>
            </tr>
 
 
          <tr>
            <td><label for="DOB">DOB:<span style="color: red"><?php echo "*"; ?></span></label></td>
-           <td><input type="date" id="DOB" name="DOB" required></td>
+           <td><input type="date" id="DOB" name="DOB"value="<?php echo $DOB ?>">
+          <span style="color: red"> <?php echo $DOBErr; ?> </span></td>
         </tr>
 
          <tr>
            <td>Religion:</td>
-           <td><select name="Religion" > 
+           <td>
+           <select name="Religion" > 
              <!--  <option value="" name="" ></option>  -->
               <option value="islam" name="Religion" >islam</option> 
               <option value="hindu" name="Religion" >hindu</option> 
               <option value="christian" name="Religion" >christian</option> 
-          </select></td>
+          </select>
+          <span style="color: red"> <?php echo $ReligionErr; ?> </span></td>
        </tr>
 
        </tbody>
@@ -181,29 +273,34 @@
            <tbody>
 
               <tr>
-                 <td><label for="presentaddress">presentaddress:</label></td>
-                 <td><textarea id="presentaddress" name="presentaddress" rows="2" cols="20"></textarea></td>
+                 <td><label for="Presentaddress">presentaddress:</label></td>
+                 <td><textarea id="Presentaddress" name="Presentaddress" rows="2" cols="20"></textarea>
+                <span style="color: red"> <?php echo $Present_AddressErr; ?> </span></td>
               </tr>
 
               <tr>
                 <td><label for="Permanentaddress">Permanentaddress:</label></td>
-                <td><textarea id="Permanentaddress" name="Permanentaddress" rows="2" cols="20"></textarea></td>
+                <td><textarea id="Permanentaddress" name="Permanentaddress" rows="2" cols="20"></textarea>
+                <span style="color: red"> <?php echo $Permanent_AddressErr; ?> </span></td>
              </tr>
 
 
              <tr>
-               <td><label for="phone">phone:<span style="color: red"><?php echo "*"; ?> </label></span>
-               <td><input type="tel" id="phone" name="phone" required=""></td>
+               <td><label for="phone">phone:<span style="color: red"><?php echo "*"; ?></label></span>
+               <td><input type="tel" id="phone" name="phone"value="<?php echo $Phone ?>">
+               <span style="color: red"> <?php echo $PhoneErr; ?> </span></td>
               </tr>
 
               <tr>
-                <td><label for="Email">Email:<span style="color: red"><?php echo "*"; ?></span> </label></td>
-                <td><input type="Email" id="Email" name="Email" required></td>
+                <td><label for="Email">Email:<span style="color: red"><?php echo "*"; ?></span> </label>
+                <td><input type="Email" id="Email" name="Email"value="<?php echo $Email ?>">
+                <span style="color: red"> <?php echo $EmailErr; ?> </span></td>
              </tr>
 
              <tr>
-                <td><label for="linked">Personal Website linked : </label></td>
-                <td><input type="url" id="linked" name="linked"></td>
+                <td><label for="Website">Personal Website linked : </label></td>
+                <td><input type="url" id="Website" name="Website"value="<?php echo $Website ?>">
+                <span style="color: red"> <?php echo $WebsiteErr; ?> </span></td>
              </tr>
           </tbody>
        </table>
@@ -223,18 +320,21 @@
 
             <tr>
               <td><label for="Username">Username:<span style="color: red"><?php echo "*"; ?></span></label></td>
-              <td><input type="text" id="Username" name="Username" placeholder="Username" required></td>
+              <td><input type="text" id="Username" name="Username" placeholder="Username"value="<?php echo $Username ?>">
+              <span style="color: red"> <?php echo $UsernameErr; ?> </span></td>
            </tr>
 
            <tr>
              <td><label for="Password">Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
-             <td><input type="Password" id="Password" name="Password" placeholder="Enter Password" required>
-              <span style="color: red"><?php echo $failed; ?></span></td>
+             <td><input type="Password" id="Password" name="Password" placeholder="Enter Password">
+              <span style="color: red"><?php echo $Password_not_match; ?></span>
+              <span style="color: red"> <?php echo $PasswordErr; ?> </span></td>
            </tr>
 
            <tr>
              <td><label for="PasswordAgain">Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
-             <td><input type="Password" id="PasswordAgain" name="PasswordAgain" placeholder="Re-Enter Password" required></td>
+             <td><input type="Password" id="PasswordAgain" name="PasswordAgain" placeholder="Re-Enter Password"value="<?php echo $bookid ?>">
+             <span style="color: red"> <?php echo $PasswordErr; ?> </span></td>
           </tr>
 
        </tbody>

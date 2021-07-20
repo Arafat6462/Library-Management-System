@@ -132,7 +132,8 @@
  			<td><label for="bookid">Search Student by Id to Return :</label></td>
 			<td><input type="text" id="studentid" name="studentid" value="<?php echo $studentid ?>"></td>
  			<td><span style="color: red"><?php echo $noborrow; ?></span>
- 			<span style="color: red"><?php echo $studentnotfound; ?></span></td>
+ 			<span style="color: red"><?php echo $studentnotfound; ?></span>
+ 			<span style="color: red"><?php echo $empty; ?></span></td>
  		</tr>
 		<tr>
  			<td><label for="bookid">Book id Read only :</label>

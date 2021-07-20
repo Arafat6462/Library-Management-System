@@ -18,23 +18,50 @@
  	$s_id = $_SESSION['s_id'];
  	$s_pass = $_SESSION['s_pass'];
  	$failed = "";
- 	$flag = false;
+ 	$isValid = true;
  	$changePassSuccess = "";
  	$changePassFail = "";
+
+   $f_oldPassErr = "";
+   $f_passErr = "";
+   $f_newPassErr = "";
 
  	if ($_SERVER['REQUEST_METHOD'] === "POST")
  	{
 
- 		if(empty($f_oldPass = basic_validation($_POST['OldPassword']))) $flag = true;
- 		if(empty($f_pass = basic_validation($_POST['NewPassword']))) $flag = true;
- 		if(empty($f_newPass = basic_validation($_POST['NewPasswordAgain']))) $flag = true;
+       $f_oldPass = $_POST['OldPassword'];
+       $f_pass = $_POST['NewPassword'];
+       $f_newPass = $_POST['NewPasswordAgain'];
 
 
- 		if($f_pass != $f_newPass or $flag)
+
+      if(empty($f_oldPass))
+       {
+          $f_oldPassErr = "password can not be empty";
+          $isValid = false;
+       }
+      if(empty($f_pass))
+       {
+          $f_passErr = "password can not be empty";
+          $isValid = false;
+       }
+       if(empty($f_newPass))
+       {
+          $f_newPassErr = "password can not be empty";
+          $isValid = false;
+       }
+
+     
+ 		 $f_oldPass = basic_validation($f_oldPass);
+ 		 $f_pass = basic_validation($f_pass);
+ 		 $f_newPass = basic_validation($f_newPass);
+
+
+ 		if($f_pass != $f_newPass)
  		{	
  			$failed = "Password dose not match";
  		}
- 		else
+ 		if($isValid and $f_pass == $f_newPass)
  		{
  			if($s_pass == $f_oldPass)
  			{
@@ -50,15 +77,15 @@
                      }
                  }
 				 // save it to json file
-                 $res = write($fetch_data);
-                 if($res)
-                 {
-                    $changePassSuccess = "Change password successful.";
+              $res = write($fetch_data);
+              if($res)
+              {
+                 $changePassSuccess = "Change password successful.";
 
-                     // update session pass whit change password.
-                    session_start();
-                    $_SESSION['s_pass'] = $f_newPass;
-                 }
+                  // update session pass whit change password.
+                 session_start();
+                 $_SESSION['s_pass'] = $f_newPass;
+              }
             }
 
             else
@@ -116,19 +143,22 @@
 
       <tr>
        <td><label for="Password">Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
-       <td><input type="Password" id="OldPassword" name="OldPassword" placeholder="Old Password" required></td>
+       <td><input type="Password" id="OldPassword" name="OldPassword" placeholder="Old Password">
+      <span style="color: red"> <?php echo $f_oldPassErr; ?> </span></td>
        </tr>
 
 
        <tr>
        <td><label for="Password">New Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
-       <td><input type="Password" id="NewPassword" name="NewPassword" placeholder="New Password" required>
-       <span style="color: red"><?php echo $failed; ?></span></td>
+       <td><input type="Password" id="NewPassword" name="NewPassword" placeholder="New Password">
+       <span style="color: red"><?php echo $failed; ?></span>
+       <span style="color: red"> <?php echo $f_passErr; ?> </span></td>
        </tr>
 
        <tr>
        <td><label for="PasswordAgain">New Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
-       <td><input type="Password" id="NewPasswordAgain" name="NewPasswordAgain" placeholder="Re-Enter New Password" required></td>
+       <td><input type="Password" id="NewPasswordAgain" name="NewPasswordAgain" placeholder="Re-Enter New Password">
+      <span style="color: red"> <?php echo $f_newPassErr; ?> </span></td>
        </tr>
 
        <tr><td></td>

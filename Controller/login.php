@@ -10,7 +10,7 @@
 	
 	<?php
 
-
+	include('../Model/dblogin.php');
 	// sign up message with session
 	session_start();
 	$signupStatus = $_SESSION['signupStatus'];
@@ -23,13 +23,13 @@
 	{
 		$c_id = $_COOKIE['c_id'];
 
-		// fetch password from json file.
-		$fetch_data = json_decode(file_get_contents("../Model/signup_info.json"));
-		foreach ($fetch_data as $key  )
+		// fetch password from Database.
+		$fetch_data = getPassword($c_id);
+		for ( $i = 0; $i < count($fetch_data); $i++)
 		{
-			if($key->Username == $c_id)
+			if($fetch_data[$i]["Username"] === $c_id)
 			{
-				$c_pass = $key->Password;
+				$c_pass = $fetch_data[$i]["Password"];
  			}
 
 		}
@@ -39,8 +39,8 @@
 	session_destroy(); // destroy for delete session message.
 
 	// use as database
-	$j_id = "";
-	$j_pass = "";
+	$d_id = "";
+	$d_pass = "";
 	$loginFailed = "";
 	$isValid = true;
 	$f_id = $f_pass = "";
@@ -70,19 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 
        if($isValid)
        {
- 	       	// fetch id password from json file.
-			$fetch_data = json_decode(file_get_contents("../Model/signup_info.json")); 
-			foreach ($fetch_data as $key )
-			{
-				if($key->Username == $f_id)
-				{
-					$j_id = $key->Username;
-					$j_pass = $key->Password;
-				}
-			}
 
-			// check input with database.
-			if($f_id == $j_id and $f_pass == $j_pass)
+        	$res = login($f_id, $f_pass); 	 
+ 			if($res)
 			{
 				// if correct and remember store in cookies
 				if(isset($_POST['remember']))

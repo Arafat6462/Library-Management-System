@@ -10,6 +10,7 @@
 	<?php
 		// header file.
 	include('../View/header.html');
+	include('../Model/dbbook.php');
 
 	$searchID = "";
 	$searchIDErr = "";
@@ -85,27 +86,13 @@
  
       if($isValid)
       {
-		// fetch data from json file to update book ifno.
-		$fetch_data = json_decode(file_get_contents("../Model/books.json"));
- 
-			foreach ($fetch_data as $key  )
-			{ 
-				if($key->bookno == $bookno)
-				{
-	 				$key->bookname = $bookname;
-					$key->authorname = $authorname;
-					$key->edition = $edition;
-					$key->numberofcopy = $numberofcopy;
-					$key->shelfno = $shelfno;
-					$key->bookno = $bookno;
-
-	   			}
-			}
-   		$res = write($fetch_data);	
+			// fetch data from Database to update book ifno.
+			$res = updateBook($bookname,$authorname,$edition,$numberofcopy,$shelfno,$bookno);
+ 	
    		if($res)$updateBookSuccess = "Update book success";
-  		else $updateBookFailed = "Update book Failed";
+  			else $updateBookFailed = "Update book Failed";
 
-	}
+		}
 
 	}
 
@@ -120,22 +107,22 @@
             $isValid = false;
          }
 
-     	 $bookname = basic_validation($bookname);
+     	 // $bookname = basic_validation($bookname);
 
      	 if($isValid)
      	 {	  
-	   	   // fetch data from json file to check multiple book id.
-			$fetch_data = json_decode(file_get_contents("../Model/books.json"));
-			foreach ($fetch_data as $key  )
-			{ 
-				if($key->bookno == $searchID)
+	   	// fetch data from json file to check multiple book id.
+			$book_data = getBookId($searchID);
+			for ( $i = 0; $i < count($book_data); $i++)
+      	{ 
+				if($book_data[$i]["bookid"] == $searchID)
 				{
-					$bookname= $key->bookname;
-					$authorname=$key->authorname;
-					$edition=$key->edition;
-					$numberofcopy= $key->numberofcopy;
-					$shelfno=$key->shelfno;
-					$bookno=$key->bookno;
+					$bookname= $book_data[$i]["bookname"];
+					$authorname=$book_data[$i]["authorname"];
+					$edition=$book_data[$i]["edition"];
+					$numberofcopy= $book_data[$i]["numberofcopy"];
+					$shelfno=$book_data[$i]["shelfno"];
+					$bookno=$book_data[$i]["bookid"];
 				}
 			}
 	}
@@ -151,20 +138,7 @@
         $data = stripcslashes($data);
         return $data;
     }
-
-
-	// write in  .json
-	function write($content)
-	{ 
-		$content = json_encode($content);
-
-		$filePointer = fopen("../Model/books.json", "w");
-			$status = fwrite($filePointer, $content."\n");
-
-		fclose($filePointer);
-		return $status;
-
-	}
+ 
 	?>
 
 

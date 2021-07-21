@@ -1,3 +1,30 @@
+	<?php 
+ 			include '../Model/dbbook.php';
+			if(empty(trim($_GET['bookid'])))
+			{
+				$bookList = getAllBooks();			
+			}
+		 	
+			else 
+			{
+				$bookList = getBookId($_GET['bookid']);
+				$bookid = $_GET['bookid'];
+ 			}
+
+			if(!empty($_GET['uid']))
+			{
+ 				$response = removeBook($_GET['uid']);
+				if ($response) 
+				{
+					echo "User remove successfull"; 
+					$bookList = getAllBooks(); // auto refresh / update.
+				}
+				else
+					echo "Error while removing user";
+			}
+ 	?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +52,12 @@
 
 
 	<h3><span style="padding: 14px 16px;"> View books</span></h3>
+
+	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" mathod = "GET">
+ 		<input type="text" name="bookid" value="<?php echo $bookid  ?>">
+ 		<input type="submit" name="search" value="Search"><br><br><br>
+ 	</form>
+
 	
 	<table style="width:80%">
 		<tr>
@@ -34,23 +67,24 @@
 			<th>Numberofcopy</th>
 			<th>shelfno</th>
 			<th>bookid</th>
+			<th>Delete book</th>
 		</tr>
 
-		<?php
+		 <?php
+		
+	 		foreach ($bookList as $arr  )
+			{
+	  			foreach ($arr as $key => $value)
+	  			{
+	  				echo  "<td>".$value."</td>";
+	   				if($key == "bookid")
+	   				{
+	  					echo "<td><a href = '".$_SERVER['PHP_SELF']."?uid=".$arr["bookid"] ."'>Delete</a></td><tr>"; //get id
+	   				}
+				}
+	 		}
+		?>
 
-		// fetch data from json file.
-		$fetch_data = json_decode(file_get_contents("../Model/books.json"));
- 		foreach ($fetch_data as $arr  )
-		{
-  			foreach ($arr as $key => $value)
-  			{
-  				echo  "<td>".$value."</td>";
-   				if($key == "bookno")
-  					echo "<tr>";
-			}
- 		}
-?>
-		 
 
 	</table>
 

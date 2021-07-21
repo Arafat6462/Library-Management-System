@@ -12,7 +12,8 @@
  	<?php
 
    include('../View/header.html');
-
+   include('../Model/dbbook.php');
+ 
 
 
    $addBookSuccess = $addBookFailed = "";
@@ -72,35 +73,28 @@
       $shelfno = basic_validation($shelfno);
       $bookno = basic_validation($bookno);
 
-     // fetch data from json file to check multiple book id.
-      $fetch_data = json_decode(file_get_contents("../Model/books.json"));
-      foreach ($fetch_data as $key  )
-      { 
-         if($key->bookno == $bookno)
+     // fetch data from Database to check multiple book id.
+      $book_data = getBookId($bookno);
+      for ( $i = 0; $i < count($book_data); $i++)
+      {
+         if($book_data[$i]["bookid"] == $bookno)
          {
             $uniqueId = "This id is already exist !!";
             $isValid = false;
+
          }
       }
+         
+      // if pass php validation then can write file.
+      if($isValid)
+      {
+            $res = AddBook($bookname,$authorname,$edition,$numberofcopy,$shelfno,$bookno);
+             
+            if($res) 
+                $addBookSuccess = "Add book succesfully.";
 
-
-   // if pass php validation then can write file.
-   if($isValid)
-   {
-
-      $book = array( "bookname"=>basic_validation($_POST['bookname']),"authorname"=>basic_validation($_POST['authorname']),
-       "edition"=>basic_validation($_POST['edition']),"numberofcopy"=>basic_validation($_POST['numberofcopy']),
-       "shelfno"=>basic_validation($_POST['shelfno']),"bookno"=>basic_validation($_POST['bookno']));
-
-      $res = write($book);
-   }
-
-
-    // if file write successful
-   if($res) 
-       $addBookSuccess = "Add book succesfully.";
-
-   else $addBookFailed = "Add book failed.";
+            else $addBookFailed = "Add book failed.";
+       }
 
 }
 
@@ -113,24 +107,7 @@
              return $data;
          }
 
-         // write in data.json
-         function write($content)
-         {
-             $addbook = json_decode(file_get_contents("../Model/books.json"));
-
-             // add new value on associative array formate data.json
-             array_push($addbook, $content);
-
-             $addbook = json_encode($addbook);
-
-
-             $filePointer = fopen("../Model/books.json", "w");	
-             $status = fwrite($filePointer, $addbook."\n");
-
-             fclose($filePointer);
-             return $status;
-         }
-
+         
 ?>
 
 

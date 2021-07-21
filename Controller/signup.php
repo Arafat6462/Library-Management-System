@@ -10,6 +10,7 @@
  	<h1>Sign-Up Form for Librarian:</h1>
 
  	<?php
+  include '../Model/dbinsert.php';  
 
  	$signupSuccess = "";
   $signupFailed = "";
@@ -51,64 +52,64 @@
             $Username = $_POST['Username'];
             $Password = $_POST['Password'];
 
-             if(empty($Firstname))
+             if(empty($Firstname) or strlen($Firstname) > 15)
                {
-                  $FirstnameErr = "Firstname can not be empty";
+                  $FirstnameErr = "Firstname can not be empty or > 15 Character.";
                   $isValid = false;
                }
-             if(empty($Lastname))
+             if(empty($Lastname) or strlen($Lastname) > 15)
                {
-                  $LastnameErr = "Lastname can not be empty";
+                  $LastnameErr = "Lastname can not be empty or > 15 Character. Character.";
                   $isValid = false;
                }
-             if(empty($Gender))
+             if(empty($Gender) or strlen($Gender) > 10)
                {
-                  $GenderErr = "Gender can not be empty";
+                  $GenderErr = "Gender can not be empty or > 10 Character.";
                   $isValid = false;
                }
              if(empty($DOB))
                {
-                  $DOBErr = "DOB can not be empty";
+                  $DOBErr = "DOB can not be empty Character.";
                   $isValid = false;
                }
-             if(empty($Religion))
+             if(empty($Religion) or strlen($Religion) > 15)
                {
-                  $ReligionErr = "Religion can not be empty";
+                  $ReligionErr = "Religion can not be empty or > 15 Character.";
                   $isValid = false;
                }
-             if(empty($Present_Address))
+             if(empty($Present_Address) or strlen($Present_Address) > 100)
                {
-                  $Present_AddressErr = "presentaddress can not be empty";
+                  $Present_AddressErr = "presentaddress can not be empty or > 100 Character.";
                   $isValid = false;
                }
-             if(empty($Permanent_Address))
+             if(empty($Permanent_Address) or strlen($Permanent_Address) > 100)
                {
-                  $Permanent_AddressErr = "Permanentaddress can not be empty";
+                  $Permanent_AddressErr = "Permanentaddress can not be empty or > 100 Character.";
                   $isValid = false;
                }
-             if(empty($Phone))
+             if(empty($Phone) or strlen($Phone) > 15)
                {
-                  $PhoneErr = "phone can not be empty";
+                  $PhoneErr = "phone can not be empty or > 15 Character.";
                   $isValid = false;
                }
-             if(empty($Email))
+             if(empty($Email) or strlen($Email) > 30)
                {
-                  $EmailErr = "Email can not be empty";
+                  $EmailErr = "Email can not be empty or > 30 Character.";
                   $isValid = false;
                }
-             if(empty($Website))
+             if(empty($Website) or strlen($Website) > 50)
                {
-                  $WebsiteErr = "Website can not be empty";
+                  $WebsiteErr = "Website can not be empty or > 50 Character.";
                   $isValid = false;
                }
-             if(empty($Username))
+             if(empty($Username) or strlen($Username) > 15)
                {
-                  $UsernameErr = "Username can not be empty";
+                  $UsernameErr = "Username can not be empty or > 15 Character.";
                   $isValid = false;
                }
-             if(empty($Password))
+             if(empty($Password) or strlen($Password) > 15)
                {
-                  $PasswordErr = "Password can not be empty";
+                  $PasswordErr = "Password can not be empty or > 15 Character.";
                   $isValid = false;
                }
 
@@ -135,21 +136,11 @@
             
             
 
-
-
- 			$array = array( "Firstname"=>basic_validation($_POST['Firstname']),"Lastname"=>basic_validation($_POST['Lastname']),
- 				"Gender"=>basic_validation($_POST['Gender']),"DOB"=>basic_validation($_POST['DOB']),
- 				"Religion"=>basic_validation($_POST['Religion']),"presentaddress"=>basic_validation($_POST['presentaddress']),
- 				"Permanentaddress"=>basic_validation($_POST['Permanentaddress']),"phone"=>basic_validation($_POST['phone']),
- 				"Email"=>basic_validation($_POST['Email']),"linked"=>basic_validation($_POST['linked']),
- 				"Username"=>basic_validation($_POST['Username']),"Password"=>basic_validation($_POST['Password'])
- 			);
-
-
+ 
             // if pass php validation then can write file.
             if($isValid)
              {
-                 $res = write($array);
+                 $res = register($Firstname,$Lastname,$Gender,$DOB,$Religion,$Present_Address,$Permanent_Address,$Phone,$Email,$Website,$Username,$Password);
               
                   if($res) 
                      {
@@ -175,28 +166,6 @@
         $data = stripcslashes($data);
         return $data;
     }
-
- 		// write in data.json
-    function write($content)
-    {
-        $signInInfo = json_decode(file_get_contents("../Model/signup_info.json"));
-
- 			 // add new value on associative array formate data.json
-        array_push($signInInfo, $content);
-
-        $signInInfo = json_encode($signInInfo);
-
-
-        $filePointer = fopen("../Model/signup_info.json", "w");	
-        $status = fwrite($filePointer, $signInInfo."\n");
-
-        fclose($filePointer);
-        return $status;
-
-
-    }
-
-
 
     ?>
 

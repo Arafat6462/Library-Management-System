@@ -44,7 +44,7 @@
 	 {
  		$conn = connect(); 
  		$statement = $conn->prepare("UPDATE books SET bookname = ?,authorname = ?,edition = ?,numberofcopy = ?,shelfno = ? WHERE bookid = ?");  
-	 	$statement->bind_param("ssiiii",$bookname,$authorname,$edition,$numberofcopy,$shelfno,$bookid);
+	 	$statement->bind_param("sssiii",$bookname,$authorname,$edition,$numberofcopy,$shelfno,$bookid);
 		return ($statement->execute()); 
  	}
  

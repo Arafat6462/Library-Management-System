@@ -33,22 +33,23 @@
 			<th>Currenr Borrow</th>
 			<th>borrow Book Id</th>
 			<th>Total borrowed </th>
- 		</tr>
+  		</tr>
 
 		<?php
-
-		// fetch data from json file.
-		$fetch_data = json_decode(file_get_contents("../Model/student.json"));
- 		foreach ($fetch_data as $arr  )
+		include '../Model/dbborrowbook.php';
+		$bookList = getBorrowHistory();
+ 		foreach ($bookList as $arr  )
 		{
   			foreach ($arr as $key => $value)
   			{
   				echo  "<td>".$value."</td>";
    				if($key == "allhistory")
-  					echo "<tr>";
+   				{
+  					echo "<tr>"; 
+   				}
 			}
  		}
-?>
+		?>
 		 
 
 	</table>

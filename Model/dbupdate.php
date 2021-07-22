@@ -9,8 +9,6 @@
  		$statement = $conn->prepare("UPDATE users SET password = ? WHERE username = ?");  
 	 	$statement->bind_param("ss",$password,$username);
 		return ($statement->execute()); 
- 
-
  	}
  
 

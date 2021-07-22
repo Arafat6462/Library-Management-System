@@ -9,6 +9,7 @@
 
 	<?php
  	include('../View/header.html');
+ 	include('../Model/dbreturnbook.php');
 
 
 
@@ -30,18 +31,16 @@
 		if(!empty($_POST['studentid']))
 		{
 
-			$studentid = $_POST['studentid'];
+		  $studentid = $_POST['studentid'];
 
-
-		// find student
-		$fetch_data = json_decode(file_get_contents("../Model/student.json"));
- 
-		foreach ($fetch_data as $key  )
-		{ 
-			if($key->id == $studentid )
-			{
- 				 $flag = true;	 
- 				 if($key->totalBorrow == 0)
+		  // find student
+		  $student_data = getStudentId($studentid);
+ 	      for ( $i = 0; $i < count($student_data); $i++)
+	      {
+	         if($student_data[$i]["studentId"] == $studentid)
+	         {
+	             $flag = true;	 
+ 				 if($student_data[$i]["currentBorrow"] == 0)
  				  {
  				 	$noborrow = "No Borrow to this student";
  				 	$flag2 = false;
@@ -49,41 +48,31 @@
  				  }
  				  else
  				  {
- 				  	$bookid = $key->bookid;
+ 				  	$bookid = $student_data[$i]["bookid"];
  				  } 
-   			}
-   			
-		}
+	         }
+	      }
+
 		if(!$flag)$studentnotfound = "Student not Found";
  
 
 		
 		if($flag and $flag2) //write file
 		{
+ 			$studentid = $_POST['studentid'];
+			$res2 = updateStudent(0, -1, $studentid);
+ 
+			$numberofcopy = "";
 
-			$fetch_data = json_decode(file_get_contents("../Model/student.json"));
-			foreach ($fetch_data as $key  )
-			{ 
-				if($key->id == $studentid )
-				{
-					$key->totalBorrow = $key->totalBorrow - 1;
-					$key->bookid = 0;
+			$book_data = getBookId($bookid);
+	 	      for ( $i = 0; $i < count($book_data); $i++)
+		      {
+		         if($book_data[$i]["bookid"] == $bookid)
+		         	 $numberofcopy = $book_data[$i]["numberofcopy"] ;
+		      }
+		      $numberofcopy +=1;
 
-				}
-			}
-			$res2 = write($fetch_data,"../Model/student.json");	
-
-
-			$fetch_data = json_decode(file_get_contents("../Model/books.json"));
-			foreach ($fetch_data as $key  )
-			{ 
-				if($key->bookno == $bookid )
-				{
-					$key->numberofcopy = $key->numberofcopy + 1;
-
-				}
-			}
-			$res = write($fetch_data,"../Model/books.json");	
+			$res = updateBook($numberofcopy, $bookid);	
 
 
 
@@ -97,20 +86,6 @@
 		$empty = "Field can't be empty.";
 }
 
-
-
-		// write in  .json
-		function write($content, $path)
-		{ 
-			$content = json_encode($content);
-
-			$filePointer = fopen($path, "w");
- 			$status = fwrite($filePointer, $content."\n");
-
-			fclose($filePointer);
-			return $status;
- 
-		}
 
  	?>
 

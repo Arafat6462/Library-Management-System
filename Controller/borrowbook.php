@@ -8,6 +8,7 @@
 <body>
 	<?php
  	include('../View/header.html');
+ 	include('../Model/dbborrowbook.php');
 
  	$bookid = "";
  	$studentid = "";
@@ -22,29 +23,32 @@
 	$studentlim = "";
 	$BorrowBookSuccess = "";
 
+	$numberofcopy = "";
+	$currentBorrow = "";
+	$allhistory = "";
+
 
 	// search book
  	if(isset($_POST['confirmborrow']) and !empty($_POST['bookid']))
 	{
 		$bookid = $_POST['bookid'];
- 
-		// fetch data from json file to update book ifno.
-		$fetch_data = json_decode(file_get_contents("../Model/books.json"));
- 
-		foreach ($fetch_data as $key  )
-		{ 
-	 		if($key->bookno == $bookid )
-			{
- 				 $flag1 = true;
- 				 if($key->numberofcopy < 2)
+
+		$book_data = getBookId($bookid);
+ 	      for ( $i = 0; $i < count($book_data); $i++)
+	      {
+	         if($book_data[$i]["bookid"] == $bookid)
+	         {
+	         	 $numberofcopy = $book_data[$i]["numberofcopy"] ;
+	             $flag1 = true;
+ 				 if($book_data[$i]["numberofcopy"] < 2)
  				 {
  				 	$booklim = "Book not available";
  				 	$flag1 = false;
  				 }
+	         }
+	      }
 
-
-   			}
-		}
+		 
 		if($flag1)$bookfound = "Book Found";
 		// else $booknotfound = "Book Not Found.";
 
@@ -55,22 +59,23 @@
 	{
 		$studentid = $_POST['studentid'];
  
-		// fetch data from json file to update book ifno.
-		$fetch_data = json_decode(file_get_contents("../Model/student.json"));
- 
-		foreach ($fetch_data as $key  )
-		{ 
-			if($key->id == $studentid )
-			{
- 				 $flag2 = true;
- 				  if($key->totalBorrow > 0)
+		 $student_data = getStudentId($studentid);
+ 	      for ( $i = 0; $i < count($student_data); $i++)
+	      {
+	         if($student_data[$i]["studentId"] == $studentid)
+	         {
+	              $flag2 = true;
+	              $currentBorrow = $student_data[$i]["currentBorrow"];
+	              $allhistory = $student_data[$i]["allhistory"];
+ 				  if($student_data[$i]["currentBorrow"] > 0)
  				  {
  				 	$studentlim = "Borrow limit full";
  				 	$flag2=false;
  				 	$flag3= false;
  				  }
-   			}
-		}
+	         }
+	      }
+ 
 		if($flag2)$studentfound = "Student Found";
 		// else if($flag3)$studentnotfound = "Student Not Found";
 
@@ -80,53 +85,18 @@
 	// confirm to file
 	if( isset($_POST['confirmborrow']) and $flag1 and $flag2)
 	{
-		$fetch_data = json_decode(file_get_contents("../Model/books.json"));
-		foreach ($fetch_data as $key  )
-		{ 
-	 		if($key->bookno == $bookid )
-			{
-  				 $key->numberofcopy = $key->numberofcopy - 1;
- 				 	 
-   			}
-		}
-		$res = write($fetch_data,"../Model/books.json");	
-
-
-		$fetch_data = json_decode(file_get_contents("../Model/student.json"));
-		foreach ($fetch_data as $key  )
-		{ 
-	 		if($key->id == $studentid )
-			{
-  				 $key->totalBorrow = $key->totalBorrow + 1;
-   				 $key->allhistory = $key->allhistory + 1;
-  				 $key->bookid = $bookid;
- 				 	 
-   			}
-		}
-		$res2 = write($fetch_data,"../Model/student.json");	
-
-
+		$numberofcopy -=1;
+		$currentBorrow +=1;
+		$allhistory +=1;
+	 
+		$res = updateBook($numberofcopy, $bookid);	
+		$res2 = updateStudent($currentBorrow, $allhistory,$bookid, $studentid);
 
   		if($res and $res2)$BorrowBookSuccess = "Borrow book success";
-
-
 	}
 
 
-		// write in  .json
-		function write($content, $path)
-		{ 
-			$content = json_encode($content);
-
-			$filePointer = fopen($path, "w");
- 			$status = fwrite($filePointer, $content."\n");
-
-			fclose($filePointer);
-			return $status;
- 
-		}
-
-
+		 
 	?>
 
 	<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST">

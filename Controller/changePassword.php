@@ -13,6 +13,7 @@
 
     // header file.
     include('../View/header.html');
+    include('../Model/dbupdatepassword.php');
 
  	session_start();
  	$s_id = $_SESSION['s_id'];
@@ -65,19 +66,7 @@
  		{
  			if($s_pass == $f_oldPass)
  			{
- 				// fetch password from json file. and update.
- 				$fetch_data = json_decode(file_get_contents("../Model/signup_info.json"));
-
- 				foreach ($fetch_data as $key )
- 				{
-                     if($key->Username ==  $s_id and $key->Password ==  $s_pass)
-                     {
-                         $key->Password = $f_newPass;
-
-                     }
-                 }
-				 // save it to json file
-              $res = write($fetch_data);
+              $res = updatePassword($s_id, $f_newPass);
               if($res)
               {
                  $changePassSuccess = "Change password successful.";
@@ -90,10 +79,6 @@
 
             else
              $changePassFail = "Password Incorect";
-
-
-
-
 
      }
 
@@ -108,21 +93,7 @@
      $data = stripcslashes($data);
      return $data;
  }
-
- 	// write in  .json
- function write($content)
- { 
-    $content = json_encode($content);
-
-    $filePointer = fopen("../Model/signup_info.json", "w");	
-    $status = fwrite($filePointer, $content."\n");
-
-    fclose($filePointer);
-    return $status;
-
-
-}
-
+ 
 ?>
 
 

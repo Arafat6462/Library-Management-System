@@ -77,12 +77,12 @@
                   $ReligionErr = "Religion can not be empty or > 15 Character.";
                   $isValid = false;
                }
-             if(empty($Present_Address) or strlen($Present_Address) > 100)
+             if( strlen($Present_Address) > 100)
                {
                   $Present_AddressErr = "presentaddress can not be empty or > 100 Character.";
                   $isValid = false;
                }
-             if(empty($Permanent_Address) or strlen($Permanent_Address) > 100)
+             if( strlen($Permanent_Address) > 100)
                {
                   $Permanent_AddressErr = "Permanentaddress can not be empty or > 100 Character.";
                   $isValid = false;
@@ -97,7 +97,7 @@
                   $EmailErr = "Email can not be empty or > 30 Character.";
                   $isValid = false;
                }
-             if(empty($Website) or strlen($Website) > 50)
+             if(strlen($Website) > 50)
                {
                   $WebsiteErr = "Website can not be empty or > 50 Character.";
                   $isValid = false;
@@ -170,7 +170,7 @@
     ?>
 
 
-    <form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST">
+    <form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST" name="RegistrationForm" onsubmit="return jsValid();" >
 
 
 
@@ -183,13 +183,15 @@
          <tr>
            <td><label for="fname">First Name:<span style="color: red"><?php echo "*"; ?></span></label></td>
            <td><input type="text" id="fname" name="Firstname" value="<?php echo $Firstname ?>">
-           <span style="color: red"> <?php echo $FirstnameErr; ?> </span></td>
+           <span style="color: red"> <?php echo $FirstnameErr; ?> </span>
+           <span id="FirstnameErr" style="color: red;"></span></td>
         </tr>
 
          <tr>
            <td><label for="lname">Last name:<span style="color: red"><?php echo "*"; ?></span> </label></td>
            <td><input type="text" id="lname" name="Lastname"value="<?php echo $Lastname ?>">
-           <span style="color: red"> <?php echo $LastnameErr; ?> </span></td>
+           <span style="color: red"> <?php echo $LastnameErr; ?> </span>
+           <span id="LastnameErr" style="color: red;"></span></td>
         </tr>
 
 
@@ -203,14 +205,16 @@
          
            <input type="radio" id="Other" name="Gender" value="Other"> 
            <label for="Other">Other</label>
-          <span style="color: red"> <?php echo $GenderErr; ?> </span></td>
+          <span style="color: red"> <?php echo $GenderErr; ?> </span>
+         <span id="GenderErr" style="color: red;"></span></td>
            </tr>
 
 
          <tr>
            <td><label for="DOB">DOB:<span style="color: red"><?php echo "*"; ?></span></label></td>
            <td><input type="date" id="DOB" name="DOB"value="<?php echo $DOB ?>">
-          <span style="color: red"> <?php echo $DOBErr; ?> </span></td>
+          <span style="color: red"> <?php echo $DOBErr; ?> </span>
+          <span id="DOBErr" style="color: red;"></span></td>
         </tr>
 
          <tr>
@@ -222,7 +226,8 @@
               <option value="hindu" name="Religion" >hindu</option> 
               <option value="christian" name="Religion" >christian</option> 
           </select>
-          <span style="color: red"> <?php echo $ReligionErr; ?> </span></td>
+          <span style="color: red"> <?php echo $ReligionErr; ?> </span>
+          <span id="ReligionErr" style="color: red;"></span></td>
        </tr>
 
        </tbody>
@@ -244,32 +249,37 @@
               <tr>
                  <td><label for="Presentaddress">presentaddress:</label></td>
                  <td><textarea id="Presentaddress" name="Presentaddress" rows="2" cols="20"></textarea>
-                <span style="color: red"> <?php echo $Present_AddressErr; ?> </span></td>
+                <span style="color: red"> <?php echo $Present_AddressErr; ?> </span>
+                <span id="PresentaddressErr" style="color: red;"></span></td>
               </tr>
 
               <tr>
                 <td><label for="Permanentaddress">Permanentaddress:</label></td>
                 <td><textarea id="Permanentaddress" name="Permanentaddress" rows="2" cols="20"></textarea>
-                <span style="color: red"> <?php echo $Permanent_AddressErr; ?> </span></td>
+                <span style="color: red"> <?php echo $Permanent_AddressErr; ?> </span>
+                <span id="PermanentaddressErr" style="color: red;"></span></td>
              </tr>
 
 
              <tr>
                <td><label for="phone">phone:<span style="color: red"><?php echo "*"; ?></label></span>
                <td><input type="tel" id="phone" name="phone"value="<?php echo $Phone ?>">
-               <span style="color: red"> <?php echo $PhoneErr; ?> </span></td>
+               <span style="color: red"> <?php echo $PhoneErr; ?> </span>
+               <span id="PhoneErr" style="color: red;"></span></td>
               </tr>
 
               <tr>
                 <td><label for="Email">Email:<span style="color: red"><?php echo "*"; ?></span> </label>
                 <td><input type="Email" id="Email" name="Email"value="<?php echo $Email ?>">
-                <span style="color: red"> <?php echo $EmailErr; ?> </span></td>
+                <span style="color: red"> <?php echo $EmailErr; ?> </span>
+                <span id="EmailErr" style="color: red;"></span></td>
              </tr>
 
              <tr>
                 <td><label for="Website">Personal Website linked : </label></td>
                 <td><input type="url" id="Website" name="Website"value="<?php echo $Website ?>">
-                <span style="color: red"> <?php echo $WebsiteErr; ?> </span></td>
+                <span style="color: red"> <?php echo $WebsiteErr; ?> </span>
+                <span id="WebsiteErr" style="color: red;"></span></td>
              </tr>
           </tbody>
        </table>
@@ -290,20 +300,23 @@
             <tr>
               <td><label for="Username">Username:<span style="color: red"><?php echo "*"; ?></span></label></td>
               <td><input type="text" id="Username" name="Username" placeholder="Username"value="<?php echo $Username ?>">
-              <span style="color: red"> <?php echo $UsernameErr; ?> </span></td>
+              <span style="color: red"> <?php echo $UsernameErr; ?> </span>
+              <span id="UsernameErr" style="color: red;"></span></td>
            </tr>
 
            <tr>
              <td><label for="Password">Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
              <td><input type="Password" id="Password" name="Password" placeholder="Enter Password">
               <span style="color: red"><?php echo $Password_not_match; ?></span>
-              <span style="color: red"> <?php echo $PasswordErr; ?> </span></td>
+              <span style="color: red"> <?php echo $PasswordErr; ?> </span>
+              <span id="PasswordErr" style="color: red;"></span></td>
            </tr>
 
            <tr>
              <td><label for="PasswordAgain">Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
              <td><input type="Password" id="PasswordAgain" name="PasswordAgain" placeholder="Re-Enter Password"value="<?php echo $bookid ?>">
              <span style="color: red"> <?php echo $PasswordErr; ?> </span></td>
+             <span id="PasswordAgainErr" style="color: red;"></span></td>
           </tr>
 
        </tbody>
@@ -321,6 +334,101 @@
 
 
   </form>
+
+
+
+
+  <script>
+    
+    function jsValid() 
+    { 
+ 
+        var fname = document.forms["RegistrationForm"]["fname"].value;
+        var lname = document.forms["RegistrationForm"]["lname"].value;
+        var gender = document.forms["RegistrationForm"]["Gender"].value;
+        var dob = document.forms["RegistrationForm"]["DOB"].value;
+        var religion = document.forms["RegistrationForm"]["Religion"].value;
+        var preAddress = document.forms["RegistrationForm"]["Presentaddress"].value;
+        var perAddress = document.forms["RegistrationForm"]["Permanentaddress"].value;
+        var phone = document.forms["RegistrationForm"]["phone"].value;
+        var email = document.forms["RegistrationForm"]["Email"].value;
+        var website = document.forms["RegistrationForm"]["Website"].value;
+        var username = document.forms["RegistrationForm"]["Username"].value;
+        var password = document.forms["RegistrationForm"]["Password"].value;
+        var passwordAgain = document.forms["RegistrationForm"]["PasswordAgain"].value;
+ 
+  
+
+        if (fname === "" || fname.length > 15) 
+        {
+            document.getElementById('FirstnameErr').innerHTML = "Firstname can not be empty or > 15 Character.....";
+            return false;
+        } 
+        if (lname === "" || lname.length > 15) 
+        {
+            document.getElementById('LastnameErr').innerHTML = "Lastname can not be empty or > 15 Character.";
+            return false;
+        } 
+        if (gender === "") 
+        {
+            document.getElementById('GenderErr').innerHTML = "gender can not be empty..";
+            return false;
+        } 
+        if (dob === "") 
+        {
+            document.getElementById('DOBErr').innerHTML = "dob can not be empty.";
+            return false;
+        } 
+        if (religion === "" || religion.length > 15) 
+        {
+            document.getElementById('ReligionErr').innerHTML = "Religion can not be empty or > 15 Character.";
+            return false;
+        } 
+        if (preAddress.length > 100) 
+        {
+            document.getElementById('Present_AddressErr').innerHTML = "Present Address can not be > 100 Character.";
+            return false;
+        } 
+        if (perAddress.length > 100) 
+        {
+            document.getElementById('Permanent_AddressErr').innerHTML = "Permanent Address can not be > 100 Character.";
+            return false;
+        } 
+        if (phone === "" || phone.length > 15) 
+        {
+            document.getElementById('PhoneErr').innerHTML = "Phone can not be empty or > 15 Character.";
+            return false;
+        } 
+        if (email === "" || email.length > 30) 
+        {
+            document.getElementById('EmailErr').innerHTML = "Email can not be empty or > 30 Character.";
+            return false;
+        } 
+        if (website.length > 50) 
+        {
+            document.getElementById('WebsiteErr').innerHTML = "website can not be > 50 Character.";
+            return false;
+        } 
+        if (username === "" || username.length > 15) 
+        {
+            document.getElementById('UsernameErr').innerHTML = "Username can not be empty or > 15 Character.";
+            return false;
+        } 
+
+        if (password === "" || password.length > 15) 
+        {
+            document.getElementById('PasswordErr').innerHTML = "password can not be empty or > 15 Character.";
+            return false;
+        } 
+       if (passwordAgain === "" || password.length > 15) 
+        {
+            document.getElementById('PasswordAgainErr').innerHTML = "password can not be empty or > 15 Character.";
+            return false;
+        } 
+ 
+    }
+ 
+  </script>
 
 </body>
 </html>

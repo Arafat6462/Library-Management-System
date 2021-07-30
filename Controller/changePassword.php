@@ -98,7 +98,7 @@
 
 
 
-<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST">
+<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST"  name="ChangePassword" onsubmit="return jsValid();" >
 
  <h2>Change pasword</h2>
      <style>
@@ -115,7 +115,8 @@
       <tr>
        <td><label for="Password">Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
        <td><input type="Password" id="OldPassword" name="OldPassword" placeholder="Old Password">
-      <span style="color: red"> <?php echo $f_oldPassErr; ?> </span></td>
+      <span style="color: red"> <?php echo $f_oldPassErr; ?> </span>
+      <span id="OldPasswordErr" style="color: red;"></span></td>
        </tr>
 
 
@@ -123,17 +124,19 @@
        <td><label for="Password">New Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
        <td><input type="Password" id="NewPassword" name="NewPassword" placeholder="New Password">
        <span style="color: red"><?php echo $failed; ?></span>
-       <span style="color: red"> <?php echo $f_passErr; ?> </span></td>
+       <span style="color: red"> <?php echo $f_passErr; ?> </span>
+       <span id="NewPasswordErr" style="color: red;"></span></td>
        </tr>
 
        <tr>
        <td><label for="PasswordAgain">New Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
        <td><input type="Password" id="NewPasswordAgain" name="NewPasswordAgain" placeholder="Re-Enter New Password">
-      <span style="color: red"> <?php echo $f_newPassErr; ?> </span></td>
+      <span style="color: red"> <?php echo $f_newPassErr; ?> </span>
+      <span id="NewPasswordAgainErr" style="color: red;"></span></td>
        </tr>
 
        <tr><td></td>
-       <td><span style="float: right;"><input type="submit" value="Change Pasword"></span></td>
+       <td><span><input type="submit" value="Change Pasword"></span></td>
        <td> <span style="color: green"><?php echo $changePassSuccess; ?></span></td>
        <td> <span style="color: red"><?php echo $changePassFail; ?></span></td>
 
@@ -153,6 +156,44 @@
 
 
 </form>
+
+
+
+
+
+  <script>
+    
+    function jsValid() 
+    { 
+  
+        var OldPassword = document.forms["ChangePassword"]["OldPassword"].value;
+        var NewPassword = document.forms["ChangePassword"]["NewPassword"].value;
+        var NewPasswordAgain = document.forms["ChangePassword"]["NewPasswordAgain"].value;
+  
+ 
+        
+        if (OldPassword === "" ) 
+        {
+            document.getElementById('OldPasswordErr').innerHTML = "Password can not be empty.";
+            return false;
+        } 
+
+        if (NewPassword === "" ) 
+        {
+            document.getElementById('NewPasswordErr').innerHTML = "New password can not be empty.";
+            return false;
+        } 
+
+        if (NewPasswordAgain === "" ) 
+        {
+            document.getElementById('NewPasswordAgainErr').innerHTML = "Again password can not be empty.";
+            return false;
+        } 
+        
+    }
+ 
+  </script>
+
 
 <?php
 // footer file.

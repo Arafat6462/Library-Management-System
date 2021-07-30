@@ -7,17 +7,17 @@
 <body>
 
 	<style>
-	body {
-		margin: 0;
- 		font-size: 20px;
-		background-color: #F0F8FF	;
+	/*.topnav {
+  		background-color: #F0F8FF;
+		display: flex;
+		justify-content: flex-start;
 
- 	}
+ 	}*/
+ 	/*#006CA6*/
 
 	.topnav a {
-		float: left;
-  		padding: 14px 16px;
 		text-decoration: none;
+   		padding: 18px;
 		color: black;
 	}
 
@@ -25,6 +25,26 @@
 		background-color: #ddd;
 		color: black;
 	}
+	@media screen and (max-width: 600px){
+ 			.topnav{
+ 				flex-direction: column;
+ 			}
+ 		}
+
+.topnav{
+	background: #cacaca;
+	padding: 10px;
+	margin: 10px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content:  ;
+	align-items:flex-start;
+	border-radius: 8px;
+}
+
+
+
 
 	 
 </style>
@@ -39,7 +59,7 @@
 		<a href=" ../Controller/borrowhistory.php ">Borrows history</a>  
 	 
  		<a href="../Controller/logout.php">Logout </a> 
-		<a href="../Controller/changePassword.php">Change password </a> <br><br><br><br>
+		<a href="../Controller/changePassword.php">Change password </a> 
 		
  </div>
 

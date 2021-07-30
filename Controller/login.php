@@ -108,36 +108,36 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 
 
 		
-		<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST">
+		<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST"  name="LoginForm" onsubmit="return jsValid();" >
 			<span style="color: green"><?php echo $signupStatus; ?></span><br><br>
 			
 		<table>
       	 <tbody>
 			
 			<tr>
-            <td><label for="Username">Username:</label></td>
-			<td><input type="text" id="Username" name="Username" value="<?php echo $c_id ?>">
-			<span style="color: red"> <?php echo $f_idErr; ?> </span></td>
+	         <td><label for="Username">Username:</label></td>
+				<td><input type="text" id="Username" name="Username" value="<?php echo $c_id ?>">
+				<span style="color: red"> <?php echo $f_idErr; ?> </span>
+				<span id="UsernameErr" style="color: red;"></span></td>
 			</tr>
 
 			<tr>
-            <td><label for="Password">Password:</label></td>
-			<td><input type="Password" id="Password" name="Password" value="<?php echo $c_pass ?>">
-			<span style="color: red"> <?php echo $f_passErr; ?> </span></td>
+	         <td><label for="Password">Password:</label></td>
+				<td><input type="Password" id="Password" name="Password" value="<?php echo $c_pass ?>">
+				<span style="color: red"> <?php echo $f_passErr; ?> </span>
+				<span id="PasswordErr" style="color: red;"></span></td>
 			</tr>
 
  			<tr>
             <td></td>
             <td><input type="checkbox" name="remember" id="remember" value="1">
-			<label for="remember">Remember Me</label></td>
+			   <label for="remember">Remember Me</label></td>
 			</tr>
-
-
-			<tr><td></td></tr>
+ 
 
 			<tr>
             <td></td>
-            <td><span style="float: right;"><input type="submit" name="login" value="Log-in"></span></td>
+            <td><input type="submit" name="login" value="Log-in"></span></td>
        		</tr>
 
 		</tbody>
@@ -150,5 +150,34 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 			
 			
 		</form>
+
+
+
+
+  <script>
+    
+    function jsValid() 
+    { 
+  
+        var username = document.forms["LoginForm"]["Username"].value;
+        var password = document.forms["LoginForm"]["Password"].value;
+  
+ 
+        
+        if (username === "" ) 
+        {
+            document.getElementById('UsernameErr').innerHTML = "Username can not be empty.";
+            return false;
+        } 
+
+        if (password === "" ) 
+        {
+            document.getElementById('PasswordErr').innerHTML = "password can not be empty.";
+            return false;
+        } 
+        
+    }
+ 
+  </script>
 	</body>
 	</html>

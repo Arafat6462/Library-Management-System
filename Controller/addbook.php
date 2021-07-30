@@ -111,7 +111,7 @@
 ?>
 
 
-<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST">
+<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST" name="AddBook" onsubmit="return jsValid();">
    <h3>Add Books</h3>
 
    <style>
@@ -127,38 +127,44 @@
          <tr>
             <td><label for="bookname">Book Name :<span style="color: red"><?php echo "*"; ?></span></label></td>
             <td><input type="text" id="bookname" name="bookname" value="<?php echo $bookname ?>">
-            <span style="color: red"> <?php echo $booknameErr; ?> </span></td>
+            <span style="color: red"> <?php echo $booknameErr; ?> </span>
+            <span id="booknameErr" style="color: red;"></span></td>
          </tr> 
 
          <tr>
             <td><label for="authorname">Author Name:<span style="color: red"><?php echo "*"; ?></span></label></td>
             <td><input type="text" id="authorname" name="authorname" value="<?php echo $authorname ?>"> 
-            <span style="color: red"> <?php echo $authornameErr; ?> </span></td>
+            <span style="color: red"> <?php echo $authornameErr; ?> </span>
+            <span id="authornameErr" style="color: red;"></span></td>
          </tr> 
 
          <tr>
             <td><label for="edition">Edition:<span style="color: red"><?php echo "*"; ?></span></label></td>
             <td><input type="text" id="edition" name="edition"value="<?php echo $edition ?>" >
-            <span style="color: red"> <?php echo $editionErr; ?> </span></td>   
+            <span style="color: red"> <?php echo $editionErr; ?> </span>
+            <span id="editionErr" style="color: red;"></span></td>   
          </tr> 
 
          <tr>
             <td><label for="numberofcopy">Number of Copy:<span style="color: red"><?php echo "*"; ?></span></label></td>
             <td><input type="text" id="numberofcopy" name="numberofcopy" value="<?php echo $numberofcopy ?>" >
-            <span style="color: red"> <?php echo $numberofcopyErr; ?> </span></td>
+            <span style="color: red"> <?php echo $numberofcopyErr; ?> </span>
+            <span id="numberofcopyErr" style="color: red;"></span></td>
          </tr> 
 
          <tr>
-            <td><label for="shelfno">Shelf No:</span></label></td>
+            <td><label for="shelfno">Shelf No:<span style="color: red"><?php echo "*"; ?></span></label></td>
             <td><input type="text" id="shelfno" name="shelfno" value="<?php echo $shelfno ?>">
-            <span style="color: red"> <?php echo $shelfnoErr; ?> </span></td>
+            <span style="color: red"> <?php echo $shelfnoErr; ?> </span>
+            <span id="shelfnoErr" style="color: red;"></span></td>
          </tr> 
 
          <tr>
             <td><label for="bookno">Book Id:<span style="color: red"><?php echo "*"; ?></span></label></td>
             <td><input type="text" id="bookno" name="bookno" value="<?php echo $bookno ?>">
             <span style="color: red"> <?php echo $booknoErr; ?> </span>
-            <span style="color: red"><?php echo $uniqueId; ?></span></td>
+            <span style="color: red"><?php echo $uniqueId; ?></span>
+            <span id="bookidErr" style="color: red;"></span></td>
 
          </tr> 
 
@@ -183,6 +189,54 @@
 
 
 
+<script>
+    
+    function jsValid() 
+    { 
+ 
+        var bookname = document.forms["AddBook"]["bookname"].value;
+        var authorname = document.forms["AddBook"]["authorname"].value;
+        var edition = document.forms["AddBook"]["edition"].value;
+        var numberofcopy = document.forms["AddBook"]["numberofcopy"].value;
+        var shelfno = document.forms["AddBook"]["shelfno"].value;
+        var bookid = document.forms["AddBook"]["bookno"].value;
+         
+
+        if (bookname === "" || bookname.length > 100) 
+        {
+            document.getElementById('booknameErr').innerHTML = "bookname can not be empty or > 100 Character.";
+            return false;
+        } 
+        if (authorname === "" || authorname.length > 50) 
+        {
+            document.getElementById('authornameErr').innerHTML = "authorname can not be empty or > 50 Character.";
+            return false;
+        } 
+        if (edition === "" || edition.length > 10) 
+        {
+            document.getElementById('editionErr').innerHTML = "edition can not be empty or > 10 Character.";
+            return false;
+        } 
+        if (numberofcopy === "" || numberofcopy.length >10) 
+        {
+            document.getElementById('numberofcopyErr').innerHTML = "numberofcopy can not be empty > 10 Character.";
+            return false;
+        } 
+        if (shelfno === "" || shelfno.length > 10) 
+        {
+            document.getElementById('shelfnoErr').innerHTML = "shelfno can not be empty or > 10 Character.";
+            return false;
+        } 
+        if (bookid === "" || bookid.length > 10) 
+        {
+            document.getElementById('bookidErr').innerHTML = "bookid can not be > 10 Character.";
+            return false;
+        } 
+         
+ 
+    }
+ 
+  </script>
 
 
 

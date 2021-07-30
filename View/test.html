@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>test</title>
+</head>
+<body>
+
+
+	 <ul class="nav">
+      <li><a href="#">Link1</a></li>
+      <li><a href="#">Link2</a></li>
+      <li><a href="#">Link3</a></li>
+      <li><a href="#">Link4</a></li>
+    </ul>
+
+    <style>
+    	ul li a{
+     		margin: 15px;
+    		color: white;
+    		background: black;
+    	}
+    </style>
+
+    <script>
+    	$("a").click(function(){
+    		$("a").css("background-color","");
+    		$(this).css("background","#00acee");
+    	});
+    </script>
+	
+</body>
+</html>

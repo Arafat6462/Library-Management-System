@@ -1,0 +1,64 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>hi</title>
+     <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Profile</a>
+        <a href="#">ABC</a>
+        <div class="animation start-home"></div>
+    </nav>
+
+
+<div id="myDIV">
+        <a class="btn" href="index.html">Home</a>
+        <a class="btn" href="index.html">About</a>
+        <a class="btn" href="index.html">Blog</a>
+        <a class="btn" href="index.html">Profile</a>
+        <a class="btn" href="index.html">ABC</a>
+</div>
+
+<style>
+/* Style the buttons */
+.btn {
+  border: none;
+  text-decoration: none;
+  outline: none;
+  padding: 10px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Style the active class, and buttons on mouse-over */
+.active, .btn:hover {
+  background-color: #666;
+  color: white;
+}
+</style>
+
+    <script>
+// Add active class to the current button (highlight it)
+var header = document.getElementById("myDIV");
+var btns = header.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+  var current = document.getElementsByClassName("active");
+  if (current.length > 0) { 
+    current[0].className = current[0].className.replace(" active", "");
+  }
+  this.className += " active";
+  });
+}
+</script>
+     
+ </body>
+ </html>

@@ -15,29 +15,7 @@
 	session_start();
 	echo "welcome  ".$_SESSION['s_id'];
  
-
-
-
- 		 
-	// fetch password from json file. and update.
-	$fetch_data = json_decode(file_get_contents("../Model/signup_info.json"));
-
-	foreach ($fetch_data as $key )
-	{
-		$name = "Arafat";
- 		if($key->Firstname ==  $name)
- 		{
- 			$key->Firstname = "nipu";
-  		}
-	}
-
-	 
-	
-
-
- 	 
-
-
+ 
  	// footer file.
 	include('../View/footer.html');
 	

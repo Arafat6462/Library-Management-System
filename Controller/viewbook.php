@@ -1,27 +1,38 @@
 	<?php 
  			include '../Model/dbbook.php';
-			if(empty(trim($_GET['bookid'])))
+			if(empty(basic_validation($_GET['bookid'])))
 			{
 				$bookList = getAllBooks();			
 			}
 		 	
 			else 
 			{
-				$bookList = getBookId($_GET['bookid']);
+				$bookList = getBookId(basic_validation($_GET['bookid']));
 				$bookid = $_GET['bookid'];
  			}
 
-			if(!empty($_GET['uid']))
+			if(!empty(basic_validation($_GET['uid'])))
 			{
  				$response = removeBook($_GET['uid']);
 				if ($response) 
 				{
-					echo "User remove successfull"; 
+					echo "Book remove successfull"; 
 					$bookList = getAllBooks(); // auto refresh / update.
 				}
 				else
 					echo "Error while removing user";
 			}
+
+
+
+
+		function basic_validation($data)
+	    {
+		    $data = trim($data);
+		    $data = htmlspecialchars($data);
+		    $data = stripcslashes($data);
+		    return $data;
+	    }
  	?>
 
 

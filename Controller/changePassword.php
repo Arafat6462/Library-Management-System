@@ -23,9 +23,9 @@
  	$changePassSuccess = "";
  	$changePassFail = "";
 
-   $f_oldPassErr = "";
-   $f_passErr = "";
-   $f_newPassErr = "";
+    $f_oldPassErr = "";
+    $f_passErr = "";
+    $f_newPassErr = "";
 
  	if ($_SERVER['REQUEST_METHOD'] === "POST")
  	{

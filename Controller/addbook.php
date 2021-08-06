@@ -35,34 +35,34 @@
       $bookno = $_POST['bookno'];
 
 
-      if(empty($bookname))
+      if(empty($bookname) or strlen($bookname) > 100)
          {
-            $booknameErr = "bookname can not be empty";
+            $booknameErr = "bookname can not be empty or > 100 Character.";
             $isValid = false;
          }
-      if(empty($authorname))
+      if(empty($authorname) or strlen($authorname) > 50)
          {
-            $authornameErr = "authorname can not be empty";
+            $authornameErr = "authorname can not be empty or > 50 Character.";
             $isValid = false;
          }
-      if(empty($edition))
+      if(empty($edition) or strlen($edition) > 10)
          {
-            $editionErr = "edition can not be empty";
+            $editionErr = "edition can not be empty or > 10 Character.";
             $isValid = false;
          }
-      if(empty($numberofcopy))
+      if(empty($numberofcopy) or strlen($numberofcopy) > 10)
          {
-            $numberofcopyErr = "numberofcopy can not be empty";
+            $numberofcopyErr = "numberofcopy can not be empty > 10 Character.";
             $isValid = false;
          }
-      if(empty($shelfno))
+      if(empty($shelfno) or strlen($shelfno) > 10)
          {
-            $shelfnoErr = "shelfno can not be empty";
+            $shelfnoErr = "shelfno can not be empty or > 10 Character.";
             $isValid = false;
          }
-      if(empty($bookno))
+      if(empty($bookno) or strlen($bookno) > 10)
          {
-            $booknoErr = "bookno can not be empty";
+            $booknoErr = "bookid can not be > 10 Character.";
             $isValid = false;
          }
 

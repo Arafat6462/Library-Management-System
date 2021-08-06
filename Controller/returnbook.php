@@ -91,7 +91,7 @@
 
 
 
- 	<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST">
+ 	<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST" name="ReturnBook" onsubmit="return jsValid();">
 		<h3><span style="padding: 14px 16px;"> Return book</span></h3>
 
 		<style>
@@ -104,11 +104,12 @@
 		<table class="center">
 			<tbody>
 		<tr>
- 			<td><label for="bookid">Search Student by Id to Return :</label></td>
+ 			<td><label for="studentid">Search Student by Id to Return :</label></td>
 			<td><input type="text" id="studentid" name="studentid" value="<?php echo $studentid ?>"></td>
  			<td><span style="color: red"><?php echo $noborrow; ?></span>
  			<span style="color: red"><?php echo $studentnotfound; ?></span>
- 			<span style="color: red"><?php echo $empty; ?></span></td>
+ 			<span style="color: red"><?php echo $empty; ?></span>
+ 			<span id="studentidErr" style="color: red;"></span></td>
  		</tr>
 		<tr>
  			<td><label for="bookid">Book id Read only :</label>
@@ -127,6 +128,23 @@
 
 
 	</form>
+
+
+	<script>
+    
+    function jsValid() 
+    { 
+        var studentid = document.forms["ReturnBook"]["studentid"].value;
+         
+        if (studentid === "") 
+        {
+            document.getElementById('studentidErr').innerHTML = "studentid can not be empty.";
+            return false;
+        }  
+     }
+ 
+  </script>
+
 
 
  	<?php

@@ -23,9 +23,6 @@
 					echo "Error while removing user";
 			}
 
-
-
-
 		function basic_validation($data)
 	    {
 		    $data = trim($data);
@@ -42,24 +39,14 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>View books</title>
-
-	<style>
-	table, th, td {
-		border: 1px solid black;
-		border-collapse: collapse;
-		text-align: center;
-		table-layout: auto;
-		margin-left: auto;
-    	margin-right: auto;
-	}
-</style>
+	<link rel="stylesheet" href="../View/viewbook.css">
 </head>
 <body>
 
 	<?php
-		// header file.
-		include('../View/header.html');
-		?>
+ 	$page = 'viewbook';
+	include('../View/header.php');
+	?>
 
 
 	<h3><span style="padding: 14px 16px;"> View books</span></h3>
@@ -68,42 +55,43 @@
  		<input type="text" name="bookid" value="<?php echo $bookid  ?>">
  		<input type="submit" name="search" value="Search"><br><br><br>
  	</form>
+ 
 
-	
-	<table style="width:80%">
-		<tr>
-			<th>Bookname</th>
-			<th>Authorname</th> 
-			<th>edition</th>
-			<th>Numberofcopy</th>
-			<th>shelfno</th>
-			<th>bookid</th>
-			<th>Delete book</th>
-		</tr>
+ 	<div class="table">
+	<table>
+		<thead>
+			<tr>
+				<th>Bookname</th>
+				<th>Authorname</th> 
+				<th>edition</th>
+				<th>Numberofcopy</th>
+				<th>shelfno</th>
+				<th>bookid</th>
+				<th>Delete book</th>
+			</tr>
+		</thead>
 
-		 <?php
-		
-	 		foreach ($bookList as $arr  )
-			{
-	  			foreach ($arr as $key => $value)
-	  			{
-	  				echo  "<td>".$value."</td>";
-	   				if($key == "bookid")
-	   				{
-	  					echo "<td><a href = '".$_SERVER['PHP_SELF']."?uid=".$arr["bookid"] ."'>Delete</a></td><tr>"; //get id
-	   				}
-				}
-	 		}
-		?>
-
-
+		<tbody>
+			<?php
+		 		foreach ($bookList as $arr  )
+				{
+		  			foreach ($arr as $key => $value)
+		  			{
+		  				echo  "<td>".$value."</td>";
+		   				if($key == "bookid")
+		   				{
+		  					echo "<td><a href = '".$_SERVER['PHP_SELF']."?uid=".$arr["bookid"] ."'>Delete</a></td><tr>"; //get id
+		   				}
+					}
+		 		}
+			?>
+		</tbody>
 	</table>
+	</div>
+
+ 
 
 
-
-<?php 
-		// header file.
-		include('../View/footer.html');
-?>
+<?php include('../View/footer.html');?>
 </body>
 </html>

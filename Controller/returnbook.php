@@ -8,7 +8,8 @@
 <body>
 
 	<?php
- 	include('../View/header.html');
+	$page = 'returnbook';
+ 	include('../View/header.php');
  	include('../Model/dbreturnbook.php');
 
 

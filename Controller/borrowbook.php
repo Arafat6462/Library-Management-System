@@ -7,7 +7,8 @@
 </head>
 <body>
 	<?php
- 	include('../View/header.html');
+	$page = 'borrowbook';
+ 	include('../View/header.php');
  	include('../Model/dbborrowbook.php');
 
  	$bookid = "";

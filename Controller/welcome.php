@@ -10,7 +10,8 @@
 	<?php
 
 	// header file.
-	include('../View/header.html');
+	 $page = 'welcome';
+	 include('../View/header.php');
 
 	session_start();
 	echo "welcome  ".$_SESSION['s_id'];

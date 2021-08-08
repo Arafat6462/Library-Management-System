@@ -4,61 +4,66 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Borrow history</title>
-
-	<style>
-	table, th, td {
-		border: 1px solid black;
-		border-collapse: collapse;
-		text-align: center;
-		table-layout: auto;
-		margin-left: auto;
-    	margin-right: auto;
-	}
-</style>
+	<link rel="stylesheet" href="../View/borrowhistory.css">
 </head>
 <body>
 
 	<?php
-		// header file.
-		include('../View/header.html');
-		?>
+ 	$page = 'borrowhistory';
+	include('../View/header.php');
+	include '../Model/dbborrowbook.php';
+	$bookList = getBorrowHistory();
+	?>
 
 
 	<h3><span style="padding: 14px 16px;"> Borroyw History</span></h3>
 	
-	<table style="width:80%">
-		<tr>
-			<th>studentName</th>
-			<th>student ID</th> 
-			<th>Currenr Borrow</th>
-			<th>borrow Book Id</th>
-			<th>Total borrowed </th>
-  		</tr>
+	<div class="table">
+	<table>
+		<thead>
+			<tr>
+				<th>studentName</th>
+				<th>student ID</th> 
+				<th>Currenr Borrow</th>
+				<th>borrow Book Id</th>
+				<th>Total borrowed </th>
+				<th>Status</th>
+			</tr>
+		</thead>
 
-		<?php
-		include '../Model/dbborrowbook.php';
-		$bookList = getBorrowHistory();
- 		foreach ($bookList as $arr  )
-		{
-  			foreach ($arr as $key => $value)
-  			{
-  				echo  "<td>".$value."</td>";
-   				if($key == "allhistory")
-   				{
-  					echo "<tr>"; 
-   				}
-			}
- 		}
-		?>
-		 
+		<tbody>
+			<?php
+		 		foreach ($bookList as $arr  )
+				{
+		  			foreach ($arr as $key => $value)
+		  			{
+		  				echo  "<td>".$value."</td>";
+		   				if($key == "allhistory")
+		   				{
+		   					if($arr["currentBorrow"] == 0) 
+		   					{
+ 		   						?>
+ 		   						<td><div class="status-no">No Borrow</div></td>
+ 		   						<?php
 
+		   					}
+		   					else
+		   					{
+		   						 ?>
+  		   						<td><div class="status-yes">Borrowed</div></td>
+ 		   						<?php
+		   					}
+		  					echo "<tr>"; 
+		   				}
+					}
+		 		}
+			?>
+		</tbody>
 	</table>
+	</div>
 
 
 
-<?php 
-		// header file.
-		include('../View/footer.html');
-?>
+<?php include('../View/footer.html');?>
 </body>
 </html>

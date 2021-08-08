@@ -11,7 +11,8 @@
 
  	<?php
 
-   include('../View/header.html');
+   $page = 'addbook';
+   include('../View/header.php');
    include('../Model/dbbook.php');
  
 

@@ -12,7 +12,8 @@
  	<?php
 
     // header file.
-    include('../View/header.html');
+    $page = 'changepassword';
+    include('../View/header.php');
     include('../Model/dbupdatepassword.php');
 
  	session_start();

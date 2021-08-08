@@ -9,7 +9,8 @@
 
 	<?php
 		// header file.
-	include('../View/header.html');
+	$page = 'updatebook';
+	include('../View/header.php');
 	include('../Model/dbbook.php');
 
 	$searchID = "";

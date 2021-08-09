@@ -7,6 +7,11 @@
 <body>
 
 	<style>
+
+	body{
+		background-color: #F4F9F9;
+		/*background: linear-gradient(to right top,#65dfc9,#6cdbed);*/
+ 	}
 	 
 	.topnav a {
 		text-decoration: none;
@@ -36,7 +41,7 @@
 	border-radius: 8px;
 }
 .active{
-	background-color: green;
+	background-color: #23A96D;
 	border-radius: 5px;
 }
 

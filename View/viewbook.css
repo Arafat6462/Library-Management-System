@@ -11,7 +11,7 @@
  	justify-content: center;
  	align-items: center;
  	color: #4f546c;
- 	font-size: rem;
+ 	font-size: .9rem;
  	/*background-color: #f9fbff;*/
 
  }
@@ -27,6 +27,8 @@
 
  table thead{
  	 box-shadow: 0 0 10px rgba(0, 183, 150, .3);
+   background-color: rgba(0,255,255,.03);
+
 
  }
  
@@ -44,7 +46,13 @@
  	text-decoration: none;
  	color: #2962ff;
  }
+table tr:hover{
+   transform: scale(1.005);
+   background-color: #c8e6c9;
+   box-shadow: 0 5px 10px rgba(244, 67, 139, .3);
+ }
 
 tr:nth-child(even){
-	background-color: #f4f6fb;
+	/*background-color: #f4f6fb;*/
+  background-color: rgba(244, 246, 251, 1);
  }

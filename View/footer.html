@@ -1,24 +1,32 @@
 
 <style>
 
- 	 *{
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		text-decoration: none;
-	  }
+*{
+margin: 0;
+padding: 0;
+ }
+  
+footer{
+	position: sticky;
+	top: 100%;
+	text-align: center;
+	background-color: rgba(111, 143, 149, .3);
+	color: #242424;
+	padding: 15px;
+	transition: all .9s ease 0s;
+ 	/*box-shadow: 0 5px 15px #00000080;*/
+}   
+footer:hover{
+	background-color: rgba(111, 143, 149, .6);
 
-	 p {
-		 
-		width: 100%;
-		height: 50px;
-  		position: fixed;
-		bottom: 0px;
-		background: #cacaca;
- 		text-align: center;
- 		padding-top: 20px;
-   	}
+}
+.space{
+	margin-top: 5%;
+}	 
 </style>
 
 
- <p>© copyright Web-tech project 2021. </p> 
+<div class="space"></div>
+<footer>
+ 	<p>© copyright Web-tech project  <script>document.write(new Date().toLocaleDateString());</script>.</p> 
+</footer>

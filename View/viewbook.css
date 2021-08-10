@@ -1,9 +1,4 @@
-*{
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
- }  
-
+ 
  .table{
   font-family: Mukta, sans-serif;
  	/*height: 100vh;*/
@@ -18,7 +13,7 @@
 
  table{
  	border-collapse: collapse; /*remove space between colums*/
- 	box-shadow: 0 5px 10px #e1e5ee;
+ 	box-shadow: 0 5px 15px #ff29d14d;
  	background-color: white;
  	text-align: left;
  	overflow: hidden;

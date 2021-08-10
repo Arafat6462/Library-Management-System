@@ -1,8 +1,4 @@
-*{
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
- }  
+  
 
  .table{
   font-family: Mukta, sans-serif;
@@ -18,7 +14,9 @@
 
  table{
  	border-collapse: collapse; /*remove space between colums*/
- 	box-shadow: 0 5px 10px #e1e5ee;
+ 	/*box-shadow: 0 5px 10px #e1e5ee;*/
+   box-shadow: 0 5px 15px #ff29d14d;
+
  	background-color: rgba(255, 255, 255, 1);
  	text-align: left;
  	overflow: hidden;
@@ -47,11 +45,11 @@
    transform: scale(1.005);
    background-color: #c8e6c9;
    box-shadow: 0 5px 10px rgba(244, 67, 139, .3);
- }
+  }
  table, th, td {
         /*border: 1px solid rgba(107, 135, 144, .1);;*/
         /*text-align: center;*/
-        z-index: 3;
+        /*z-index: 3;*/
         /*backdrop-filter: blur(2rem);*/
          
     }

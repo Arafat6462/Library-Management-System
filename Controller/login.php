@@ -4,10 +4,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Log-in</title>
+	<link rel="stylesheet" href="../View/css/login.css?v <?php echo time(); ?>">
 </head>
 <body>
-	<h1>Log-in Form</h1>
-	
+ 	
 	<?php
 
 	include('../Model/dblogin.php');
@@ -22,7 +22,7 @@
 	if(isset($_COOKIE['c_id']))
 	{
 		$c_id = $_COOKIE['c_id'];
-
+ 
 		// fetch password from Database.
 		$fetch_data = getPassword($c_id);
 		for ( $i = 0; $i < count($fetch_data); $i++)
@@ -30,7 +30,7 @@
 			if($fetch_data[$i]["Username"] === $c_id)
 			{
 				$c_pass = $fetch_data[$i]["Password"];
- 			}
+  			}
 
 		}
 
@@ -105,78 +105,122 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
     }
  
 ?>
+ 
+  <!-- ///////////////////////////////////////////////// -->
+  <div class="container">
+        <div class="header">
+            <h2> Log-In</h2>
+        </div>
 
+        <form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" class="form" id="form" method = "POST" onsubmit="return jsValid();">
+             
+            <div class="form-control">
+                <lable>Username</lable>
+                <input type="text" placeholder="Arafat6462" id="Username" name="Username" value="<?php echo $c_id ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $f_idErr; ?> </span>
+            </div>  
 
-		
-		<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST"  name="LoginForm" onsubmit="return jsValid();" >
-			<span style="color: green"><?php echo $signupStatus; ?></span><br><br>
-			
-		<table>
-      	 <tbody>
-			
-			<tr>
-	         <td><label for="Username">Username:</label></td>
-				<td><input type="text" id="Username" name="Username" value="<?php echo $c_id ?>">
-				<span style="color: red"> <?php echo $f_idErr; ?> </span>
-				<span id="UsernameErr" style="color: red;"></span></td>
-			</tr>
+             <div class="form-control">
+                <lable>Password</lable>
+                <input type="password" placeholder="*********" id="Password" name="Password" value="<?php echo $c_pass ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $f_passErr; ?> </span>
+            </div>  
 
-			<tr>
-	         <td><label for="Password">Password:</label></td>
-				<td><input type="Password" id="Password" name="Password" value="<?php echo $c_pass ?>">
-				<span style="color: red"> <?php echo $f_passErr; ?> </span>
-				<span id="PasswordErr" style="color: red;"></span></td>
-			</tr>
-
- 			<tr>
-            <td></td>
-            <td><input type="checkbox" name="remember" id="remember" value="1">
-			   <label for="remember">Remember Me</label></td>
-			</tr>
+            <div class="remember">
+                <input type="checkbox" id="remember" name="remember" value="1">
+                <label for="remember">Remember Me</label>
+            </div>  
  
 
-			<tr>
-            <td></td>
-            <td><input type="submit" name="login" value="Log-in"></span></td>
-       		</tr>
+            <button type="submit" name="login">Log In</button>
 
-		</tbody>
-	</table>
-
-			<span style="color: red"><?php echo $loginFailed; ?></span>
+            <span style="color: red"><?php echo $loginFailed; ?></span>
 			<span style="color: green"><?php echo "<br><br><br>click here to <a href = 'signup.php'>Sign-up</a>" ?></span>
 
 
-			
-			
-		</form>
+        </form>
+    </div>
+ 
+  <!-- ///////////////////////////////////////////////// -->
+
 
 
 
 
   <script>
-    
-    function jsValid() 
-    { 
-  
-        var username = document.forms["LoginForm"]["Username"].value;
-        var password = document.forms["LoginForm"]["Password"].value;
-  
- 
-        
-        if (username === "" ) 
-        {
-            document.getElementById('UsernameErr').innerHTML = "Username can not be empty.";
-            return false;
-        } 
 
-        if (password === "" ) 
+    function jsValid() 
+   	 { 
+ 
+        const Username = document.getElementById('Username');
+        const Password = document.getElementById('Password');
+
+        var flag = true;       
+        checkInputs();
+
+        function checkInputs() 
         {
-            document.getElementById('PasswordErr').innerHTML = "password can not be empty.";
-            return false;
-        } 
-        
+            //get the value from inputs.
+
+            const UsernameValue = Username.value.trim();   
+            const PasswordValue = Password.value.trim();   
+ 
+ 
+            if (UsernameValue === '') {
+                setErrorFor(Username,'Username cannot be blank');
+                flag = false;
+            }
+            else if(UsernameValue.length > 15) {
+                setErrorFor(Username,'Username cannot be > 15 character');
+                flag = false;
+            }
+            else setSuccessFor(Username);
+
+
+
+            if (PasswordValue === '') {
+                setErrorFor(Password,'Password cannot be blank');
+                flag = false;
+            }
+            else if(PasswordValue.length > 15) {
+                setErrorFor(Password,'Password cannot be > 15 character');
+                flag = false;
+            }
+            else setSuccessFor(Password);
+
+         
+          }
+
+         function setErrorFor(input, message)
+         {
+            const formControl = input.parentElement; // .form-control
+            const small = formControl.querySelector('small');
+
+            // add error message inside small
+            small.innerText = message;
+
+            // add error class
+            formControl.className = 'form-control error';
+         } 
+
+         function setSuccessFor(input)
+         {
+            const formControl = input.parentElement; // .form-control
+         
+            // add success class
+            formControl.className = 'form-control success';
+         }
+
+         return flag;
+                 
     }
+
  
   </script>
 	</body>

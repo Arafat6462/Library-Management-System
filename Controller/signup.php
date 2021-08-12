@@ -4,7 +4,7 @@
  	<meta charset="UTF-8">
  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
  	<title>Sign-Up</title>
-    <link rel="stylesheet" href="../View/signup.css">
+    <link rel="stylesheet" href="../View/css/signup.css">
  </head>
  <body>
 
@@ -54,64 +54,118 @@
             $Password = $_POST['Password'];
             $PasswordAgain = $_POST['PasswordAgain'];
 
-             if(empty($Firstname) or strlen($Firstname) > 3)
+             if(empty($Firstname))
                {
-                  $FirstnameErr = "Firstname can not be empty or > 15 Character.";
+                  $FirstnameErr = "Firstname can not be empty.";
                   $isValid = false;
                }
-             if(empty($Lastname) or strlen($Lastname) > 15)
-               {
-                  $LastnameErr = "Lastname can not be empty or > 15 Character. Character.";
+             if(strlen($Firstname) > 15)
+                {
+                  $FirstnameErr = "Firstname can not be > 15 Character..";
                   $isValid = false;
                }
-             if(empty($Gender) or strlen($Gender) > 10)
+
+             if(empty($Lastname))
                {
-                  $GenderErr = "Gender can not be empty or > 10 Character.";
+                  $LastnameErr = "Lastname can not be empty.";
                   $isValid = false;
                }
+            if(strlen($Lastname) > 15)
+                {
+                  $LastnameErr = "Lastname can not be > 15 Character..";
+                  $isValid = false;
+               }
+
+             if(empty($Gender))
+               {
+                  $GenderErr = "Gender can not be empty.";
+                  $isValid = false;
+               }
+            if(strlen($Gender) > 10)
+                {
+                  $GenderErr = "Gender can not be > 10 Character..";
+                  $isValid = false;
+               }
+               
+
              if(empty($DOB))
                {
                   $DOBErr = "DOB can not be empty Character.";
                   $isValid = false;
                }
-             if(empty($Religion) or strlen($Religion) > 15)
+
+             if(empty($Religion))
                {
                   $ReligionErr = "Religion can not be empty or > 15 Character.";
                   $isValid = false;
                }
+            if(strlen($Religion) > 15)
+                {
+                  $ReligionErr = "Religion can not be > 15 Character..";
+                  $isValid = false;
+               }
+
+
              if( strlen($Present_Address) > 100)
                {
-                  $Present_AddressErr = "presentaddress can not be empty or > 100 Character.";
+                  $Present_AddressErr = "presentaddress can not be > 100 Character.";
                   $isValid = false;
                }
              if( strlen($Permanent_Address) > 100)
                {
-                  $Permanent_AddressErr = "Permanentaddress can not be empty or > 100 Character.";
+                  $Permanent_AddressErr = "Permanentaddress can not be > 100 Character.";
                   $isValid = false;
                }
-             if(empty($Phone) or strlen($Phone) > 15)
+
+             if(empty($Phone))
                {
                   $PhoneErr = "phone can not be empty or > 15 Character.";
                   $isValid = false;
                }
-             if(empty($Email) or strlen($Email) > 30)
+            if( strlen($Phone) > 15)
+                {
+                  $PhoneErr = "Phone can not be > 15 Character..";
+                  $isValid = false;
+               }
+
+             if(empty($Email))
                {
                   $EmailErr = "Email can not be empty or > 30 Character.";
                   $isValid = false;
                }
+               if(strlen($Email) > 30)
+                {
+                  $EmailErr = "Email can not be > 30 Character..";
+                  $isValid = false;
+               }
+
              if(strlen($Website) > 50)
                {
                   $WebsiteErr = "Website can not be empty or > 50 Character.";
                   $isValid = false;
                }
-             if(empty($Username) or strlen($Username) > 15)
+
+
+
+             if(empty($Username))
                {
                   $UsernameErr = "Username can not be empty or > 15 Character.";
                   $isValid = false;
                }
-             if(empty($Password) or strlen($Password) > 15)
+               if(strlen($Username) > 15)
+                {
+                  $UsernameErr = "Username can not be > 15 Character..";
+                  $isValid = false;
+               }
+
+             if(empty($Password))
                {
                   $PasswordErr = "Password can not be empty or > 15 Character.";
+                  $isValid = false;
+               }
+                if( strlen($Password) > 15)
+                {
+                  $PasswordErr = "Password can not be > 15 Character..";
                   $isValid = false;
                }
 
@@ -314,6 +368,9 @@
 
 
             <button type="submit">Submit</button>
+
+            <span style="color: green"><?php echo "<br><br><br>click here to <a href = 'login.php'>Log-in</a>" ?></span>
+
         </form>
     </div>
  

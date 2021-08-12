@@ -4,11 +4,11 @@
  	<meta charset="UTF-8">
  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
  	<title>Sign-Up</title>
+    <link rel="stylesheet" href="../View/signup.css">
  </head>
  <body>
 
- 	<h1>Sign-Up Form for Librarian:</h1>
-
+ 
  	<?php
   include '../Model/dbregistration.php';  
 
@@ -29,10 +29,11 @@
   $Website = "";
   $Username = "";
   $Password = "";
+  $PasswordAgain = "";
 
   $FirstnameErr = $LastnameErr = $GenderErr = $DOBErr = "";
   $ReligionErr = $Present_AddressErr = $Permanent_AddressErr = $PhoneErr = "";
-  $EmailErr = $WebsiteErr = $UsernameErr = $PasswordErr = "";
+  $EmailErr = $WebsiteErr = $UsernameErr = $PasswordErr = $PasswordAgainErr = "";
  
 
 
@@ -46,13 +47,14 @@
             $Religion = $_POST['Religion'];
             $Present_Address = $_POST['Presentaddress'];
             $Permanent_Address = $_POST['Permanentaddress'];
-            $Phone = $_POST['phone'];
+            $Phone = $_POST['Phone'];
             $Email = $_POST['Email'];
             $Website = $_POST['Website'];
             $Username = $_POST['Username'];
             $Password = $_POST['Password'];
+            $PasswordAgain = $_POST['PasswordAgain'];
 
-             if(empty($Firstname) or strlen($Firstname) > 15)
+             if(empty($Firstname) or strlen($Firstname) > 3)
                {
                   $FirstnameErr = "Firstname can not be empty or > 15 Character.";
                   $isValid = false;
@@ -113,9 +115,9 @@
                   $isValid = false;
                }
 
-               if($_POST['Password'] != $_POST['PasswordAgain'])
+               if($Password != $PasswordAgain)
                   { 
-                    $Password_not_match = "Password dose not match";
+                    $PasswordAgainErr = "Password dose not match";
                     $isValid = false;
                   }
    
@@ -170,171 +172,155 @@
     ?>
 
 
-    <form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST" name="RegistrationForm" onsubmit="return jsValid();" >
 
+  <!-- ///////////////////////////////////////////////// -->
+  <div class="container">
+        <div class="header">
+            <h2>Create Account</h2>
+        </div>
 
+        <form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" class="form" id="form" method = "POST" onsubmit="return jsValid();">
+            <div class="form-control">
+                <lable>First Name</lable>
+                <input type="text" placeholder="Arafat" id="Firstname" name="Firstname" value="<?php echo $Firstname ?>" >
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $FirstnameErr; ?> </span>
+            </div>  
 
-        <fieldset>
-           <legend>Basic Information:</legend>
+            <div class="form-control">
+                <lable>Last Name</lable>
+                <input type="text" placeholder="Hossain" id="Lastname" name="Lastname" value="<?php echo $Lastname ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $LastnameErr; ?> </span>
+            </div>  
 
-      <table>
-       <tbody>
+            <div class="form-control">
+                <lable>Gender</lable>
+                <span style="display:flex; margin-top: 15px; margin: 0 8em; ">
+                    <input type="radio"  id="Male" name="Gender" value="Male">
+                    <label for="Male">Male</label>
 
-         <tr>
-           <td><label for="fname">First Name:<span style="color: red"><?php echo "*"; ?></span></label></td>
-           <td><input type="text" id="fname" name="Firstname" value="<?php echo $Firstname ?>">
-           <span style="color: red"> <?php echo $FirstnameErr; ?> </span>
-           <span id="FirstnameErr" style="color: red;"></span></td>
-        </tr>
+                    <input type="radio"  id="Female" name="Gender" value="Female">
+                    <label for="Female">Female</label>
 
-         <tr>
-           <td><label for="lname">Last name:<span style="color: red"><?php echo "*"; ?></span> </label></td>
-           <td><input type="text" id="lname" name="Lastname"value="<?php echo $Lastname ?>">
-           <span style="color: red"> <?php echo $LastnameErr; ?> </span>
-           <span id="LastnameErr" style="color: red;"></span></td>
-        </tr>
+                    <input type="radio"  id="Other" name="Gender" value="Other">
+                    <label for="Other">Other</label>
+                    <small>Error message</small>
+               </span>
+                    <span style="color: red"> <?php echo $GenderErr; ?> </span>
+            </div>  
+ 
 
+            <div class="form-control">
+                <lable>DOB</lable>
+                <input type="date" placeholder="3/5/1997" id="Dob" name="DOB" value="<?php echo $DOB ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $DOBErr; ?> </span>
 
-           <tr>
-           <td> Select Gender:<span style="color: red"><?php echo "*"; ?></span></td>
-           <td><input type="radio" id="Male" name="Gender" value="Male">
-           <label for="Male">Male</label>  
-          
-           <input type="radio" id="Female" name="Gender" value="Female"> 
-           <label for="Female">Female</label> 
-         
-           <input type="radio" id="Other" name="Gender" value="Other"> 
-           <label for="Other">Other</label>
-          <span style="color: red"> <?php echo $GenderErr; ?> </span>
-         <span id="GenderErr" style="color: red;"></span></td>
-           </tr>
+            </div>  
 
+            <div class="form-control">
+                <lable style="display:flex;">Religion</lable>
+                 <select name="Religion" id="Religion" style="font-size: 14px;">
+                    <option value="">--- Select Religion ---</option>
+                    <option value="Islam" name="Religion" >Islam</option>
+                    <option value="Hindu" name="Religion" >Hindu</option>
+                    <option value="Christian" name="Religion" >Christian</option>
+                </select>
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $ReligionErr; ?> </span>
+            </div>  
+            
 
-         <tr>
-           <td><label for="DOB">DOB:<span style="color: red"><?php echo "*"; ?></span></label></td>
-           <td><input type="date" id="DOB" name="DOB"value="<?php echo $DOB ?>">
-          <span style="color: red"> <?php echo $DOBErr; ?> </span>
-          <span id="DOBErr" style="color: red;"></span></td>
-        </tr>
-
-         <tr>
-           <td>Religion:</td>
-           <td>
-           <select name="Religion" > 
-             <!--  <option value="" name="" ></option>  -->
-              <option value="islam" name="Religion" >islam</option> 
-              <option value="hindu" name="Religion" >hindu</option> 
-              <option value="christian" name="Religion" >christian</option> 
-          </select>
-          <span style="color: red"> <?php echo $ReligionErr; ?> </span>
-          <span id="ReligionErr" style="color: red;"></span></td>
-       </tr>
-
-       </tbody>
-    </table>
-
-      </fieldset>
-      <br><br><br>
-
-
-
-
-      <fieldset>
-        <legend>Contact Information:</legend>
-
-
-        <table>
-           <tbody>
-
-              <tr>
-                 <td><label for="Presentaddress">presentaddress:</label></td>
-                 <td><textarea id="Presentaddress" name="Presentaddress" rows="2" cols="20"></textarea>
+             <div class="form-control">
+                <lable style="display: flex;">Present Address</lable>
+                <textarea id="Presentaddress" rows="2" cols="20" placeholder="Jatrabari,Dhaka" name="Presentaddress"></textarea>
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
                 <span style="color: red"> <?php echo $Present_AddressErr; ?> </span>
-                <span id="PresentaddressErr" style="color: red;"></span></td>
-              </tr>
+            </div>  
 
-              <tr>
-                <td><label for="Permanentaddress">Permanentaddress:</label></td>
-                <td><textarea id="Permanentaddress" name="Permanentaddress" rows="2" cols="20"></textarea>
+            <div class="form-control">
+                <lable style="display: flex;">Permanent Address</lable>
+                <textarea id="Permanentaddress" rows="2" cols="20" placeholder="Faridpur,Dhaka" name="Permanentaddress"></textarea>
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
                 <span style="color: red"> <?php echo $Permanent_AddressErr; ?> </span>
-                <span id="PermanentaddressErr" style="color: red;"></span></td>
-             </tr>
+            </div>  
 
+            <div class="form-control">
+                <lable>Phone</lable>
+                <input type="number" placeholder="01626789352" id="Phone" name="Phone" value="<?php echo $Phone ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $PhoneErr; ?> </span>
+            </div>  
 
-             <tr>
-               <td><label for="phone">phone:<span style="color: red"><?php echo "*"; ?></label></span>
-               <td><input type="tel" id="phone" name="phone"value="<?php echo $Phone ?>">
-               <span style="color: red"> <?php echo $PhoneErr; ?> </span>
-               <span id="PhoneErr" style="color: red;"></span></td>
-              </tr>
-
-              <tr>
-                <td><label for="Email">Email:<span style="color: red"><?php echo "*"; ?></span> </label>
-                <td><input type="Email" id="Email" name="Email"value="<?php echo $Email ?>">
+            <div class="form-control">
+                <lable>Email</lable>
+                <input type="email" placeholder="Arafat6462@gmail.com" id="Email" name="Email" value="<?php echo $Email ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
                 <span style="color: red"> <?php echo $EmailErr; ?> </span>
-                <span id="EmailErr" style="color: red;"></span></td>
-             </tr>
+            </div>  
 
-             <tr>
-                <td><label for="Website">Personal Website linked : </label></td>
-                <td><input type="url" id="Website" name="Website"value="<?php echo $Website ?>">
+            <div class="form-control">
+                <lable>Personal Website</lable>
+                <input type="url" placeholder="www.arafat.com" id="Website" name="Website" value="<?php echo $Website ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
                 <span style="color: red"> <?php echo $WebsiteErr; ?> </span>
-                <span id="WebsiteErr" style="color: red;"></span></td>
-             </tr>
-          </tbody>
-       </table>
+            </div>  
+
+            <div class="form-control">
+                <lable>Username</lable>
+                <input type="text" placeholder="Arafat6462" id="Username" name="Username" value="<?php echo $Username ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $UsernameErr; ?> </span>
+            </div>  
+
+            <div class="form-control">
+                <lable>Password</lable>
+                <input type="password" placeholder="Arafat123" id="Password" name="Password" value="<?php echo $Password ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $PasswordErr; ?> </span>
+            </div>  
+
+            <div class="form-control">
+                <lable>Password check</lable>
+                <input type="password" placeholder="Arafat123" id="PasswordAgain" name="PasswordAgain" value="<?php echo $PasswordAgain ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $PasswordAgainErr; ?> </span>
+            </div>  
 
 
-    </fieldset>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+ 
+  <!-- ///////////////////////////////////////////////// -->
 
 
-      <br><br><br>
-
-
-      <fieldset>
-        <legend>Account Information:</legend>
-
-        <table>
-         <tbody>
-
-            <tr>
-              <td><label for="Username">Username:<span style="color: red"><?php echo "*"; ?></span></label></td>
-              <td><input type="text" id="Username" name="Username" placeholder="Username"value="<?php echo $Username ?>">
-              <span style="color: red"> <?php echo $UsernameErr; ?> </span>
-              <span id="UsernameErr" style="color: red;"></span></td>
-           </tr>
-
-           <tr>
-             <td><label for="Password">Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
-             <td><input type="Password" id="Password" name="Password" placeholder="Enter Password">
-              <span style="color: red"><?php echo $Password_not_match; ?></span>
-              <span style="color: red"> <?php echo $PasswordErr; ?> </span>
-              <span id="PasswordErr" style="color: red;"></span></td>
-           </tr>
-
-           <tr>
-             <td><label for="PasswordAgain">Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
-             <td><input type="Password" id="PasswordAgain" name="PasswordAgain" placeholder="Re-Enter Password"value="<?php echo $bookid ?>">
-             <span style="color: red"> <?php echo $PasswordErr; ?> </span></td>
-             <span id="PasswordAgainErr" style="color: red;"></span></td>
-          </tr>
-
-       </tbody>
-    </table>
-
-
-
- </fieldset>
-
-      <br>
-      <input type="submit" value="Sign-up">
-
-      <span style="color: red"><?php echo $signupFailed; ?></span>
-      <span style="color: green"><?php echo "<br><br><br>click here to <a href = 'login.php'>login</a>" ?></span>
-
-
-  </form>
-
+ 
 
 
 
@@ -342,90 +328,227 @@
     
     function jsValid() 
     { 
- 
-        var fname = document.forms["RegistrationForm"]["fname"].value;
-        var lname = document.forms["RegistrationForm"]["lname"].value;
-        var gender = document.forms["RegistrationForm"]["Gender"].value;
-        var dob = document.forms["RegistrationForm"]["DOB"].value;
-        var religion = document.forms["RegistrationForm"]["Religion"].value;
-        var preAddress = document.forms["RegistrationForm"]["Presentaddress"].value;
-        var perAddress = document.forms["RegistrationForm"]["Permanentaddress"].value;
-        var phone = document.forms["RegistrationForm"]["phone"].value;
-        var email = document.forms["RegistrationForm"]["Email"].value;
-        var website = document.forms["RegistrationForm"]["Website"].value;
-        var username = document.forms["RegistrationForm"]["Username"].value;
-        var password = document.forms["RegistrationForm"]["Password"].value;
-        var passwordAgain = document.forms["RegistrationForm"]["PasswordAgain"].value;
- 
-  
+        const form = document.getElementById('form'); // full form
+        const Firstname = document.getElementById('Firstname'); // full input field
+        const Lastname = document.getElementById('Lastname');
+        const Gender = document.forms["form"]["Gender"];
+        const Dob = document.getElementById('Dob');
+        const Religion = document.getElementById('Religion');
+        const Presentaddress = document.getElementById('Presentaddress');
+        const Permanentaddress = document.getElementById('Permanentaddress');
+        const Phone = document.getElementById('Phone');
+        const Email = document.getElementById('Email');
+        const Website = document.getElementById('Website');
+        const Username = document.getElementById('Username');
+        const Password = document.getElementById('Password');
+        const PasswordAgain = document.getElementById('PasswordAgain');
 
-        if (fname === "" || fname.length > 15) 
-        {
-            document.getElementById('FirstnameErr').innerHTML = "Firstname can not be empty or > 15 Character.....";
-            return false;
-        } 
-        if (lname === "" || lname.length > 15) 
-        {
-            document.getElementById('LastnameErr').innerHTML = "Lastname can not be empty or > 15 Character.";
-            return false;
-        } 
-        if (gender === "") 
-        {
-            document.getElementById('GenderErr').innerHTML = "gender can not be empty..";
-            return false;
-        } 
-        if (dob === "") 
-        {
-            document.getElementById('DOBErr').innerHTML = "dob can not be empty.";
-            return false;
-        } 
-        if (religion === "" || religion.length > 15) 
-        {
-            document.getElementById('ReligionErr').innerHTML = "Religion can not be empty or > 15 Character.";
-            return false;
-        } 
-        if (preAddress.length > 100) 
-        {
-            document.getElementById('Present_AddressErr').innerHTML = "Present Address can not be > 100 Character.";
-            return false;
-        } 
-        if (perAddress.length > 100) 
-        {
-            document.getElementById('Permanent_AddressErr').innerHTML = "Permanent Address can not be > 100 Character.";
-            return false;
-        } 
-        if (phone === "" || phone.length > 15) 
-        {
-            document.getElementById('PhoneErr').innerHTML = "Phone can not be empty or > 15 Character.";
-            return false;
-        } 
-        if (email === "" || email.length > 30) 
-        {
-            document.getElementById('EmailErr').innerHTML = "Email can not be empty or > 30 Character.";
-            return false;
-        } 
-        if (website.length > 50) 
-        {
-            document.getElementById('WebsiteErr').innerHTML = "website can not be > 50 Character.";
-            return false;
-        } 
-        if (username === "" || username.length > 15) 
-        {
-            document.getElementById('UsernameErr').innerHTML = "Username can not be empty or > 15 Character.";
-            return false;
-        } 
+        console.log(Gender);
+        console.log('nooo');
+        console.log(Gender[2].checked);
+        console.log(Gender[2].parentElement);
+        console.log(Gender[2].parentElement.parentElement);
 
-        if (password === "" || password.length > 15) 
-        {
-            document.getElementById('PasswordErr').innerHTML = "password can not be empty or > 15 Character.";
-            return false;
-        } 
-       if (passwordAgain === "" || password.length > 15) 
-        {
-            document.getElementById('PasswordAgainErr').innerHTML = "password can not be empty or > 15 Character.";
-            return false;
-        } 
+
+
+        var flag = true;       
+        checkInputs();
+
  
+
+        function checkInputs() {
+            //get the value from inputs.
+
+            const FirstnameValue = Firstname.value.trim(); // full input field
+            const LastnameValue = Lastname.value.trim();  
+            const GenderValue = Gender.value.trim();   
+            const DobValue = Dob.value.trim();   
+            const ReligionValue = Religion.value.trim();   
+            const PresentaddressValue = Presentaddress.value.trim();   
+            const PermanentaddressValue = Permanentaddress.value.trim();   
+            const PhoneValue = Phone.value.trim();   
+            const EmailValue = Email.value.trim();   
+            const WebsiteValue = Website.value.trim();   
+            const UsernameValue = Username.value.trim();   
+            const PasswordValue = Password.value.trim();   
+            const PasswordAgainValue = PasswordAgain.value.trim();   
+
+            console.log(PresentaddressValue);
+            console.log(PermanentaddressValue);
+
+
+            if (FirstnameValue === ''){
+                //show error
+                // add error class
+                setErrorFor(Firstname,'Firstname cannot be blank');
+                flag = false;
+            }
+            else if(FirstnameValue.length > 15){
+                setErrorFor(Firstname,'Firstname cannot be > 15 character');
+                flag = false;
+            }
+            else{
+                // add success class
+                setSuccessFor(Firstname);
+            }
+
+
+
+            if (LastnameValue === ''){
+                setErrorFor(Lastname,'Lastname cannot be blank');
+                flag = false;
+            }
+            else if(LastnameValue.length > 15) {
+                setErrorFor(Lastname,'Lastname cannot be > 15 character');
+                flag = false;
+            }
+            else setSuccessFor(Lastname);
+
+
+ 
+            if (Gender[0].checked == false && Gender[1].checked == false && Gender[2].checked == false){
+                setErrorFor(Gender[0],'Gender cannot be empty') 
+                flag = false;
+            }
+            else if(GenderValue.length > 10) {
+                setErrorFor(Gender,'Gender cannot be > 15 character');
+                flag = false;
+            }
+             else setSuccessFor(Gender[0]);
+
+
+
+            if (DobValue === '') {
+                setErrorFor(Dob,'Dob cannot be blank');
+                flag = false;
+            }
+            else setSuccessFor(Dob);
+
+
+
+            if (ReligionValue === '') {
+                setErrorFor(Religion,'Religion cannot be blank');
+                flag = false;
+            }
+            else if(ReligionValue.length > 15) {
+                setErrorFor(Religion,'Religion cannot be > 15 character');
+                flag = false;
+            }
+            else setSuccessFor(Religion);
+
+
+
+            if(PresentaddressValue.length > 100) {
+                setErrorFor(Presentaddress,'Presentaddress cannot be > 100 character');
+                flag = false;
+            }
+            else setSuccessFor(Presentaddress);
+
+
+
+            if(PermanentaddressValue.length > 100) {
+                setErrorFor(Permanentaddress,'Permanentaddress cannot be > 100 character');
+                flag = false;
+            }
+            else setSuccessFor(Permanentaddress);
+
+
+
+            if (PhoneValue === '') {
+                setErrorFor(Phone,'Phone cannot be blank');
+                flag = false;
+            }
+            else if(PhoneValue.length > 15) {
+                setErrorFor(Phone,'Phone cannot be > 15 character');
+                flag = false;
+            }
+            else setSuccessFor(Phone);
+
+
+
+            if (EmailValue === '') {
+                setErrorFor(Email,'Email cannot be blank');
+                flag = false;
+            }
+            else if(EmailValue.length > 30) {
+                setErrorFor(EmailEmail,'Email cannot be > 30 character');
+                flag = false;
+            }
+            else setSuccessFor(Email);
+
+
+
+            if (WebsiteValue.length > 50 ) {
+                setErrorFor(Website,'Website cannot be >50 character');
+                flag = false;
+            }
+            else setSuccessFor(Website);
+
+
+
+            if (UsernameValue === '') {
+                setErrorFor(Username,'Username cannot be blank');
+                flag = false;
+            }
+            else if(UsernameValue.length > 15) {
+                setErrorFor(Username,'Username cannot be > 15 character');
+                flag = false;
+            }
+            else setSuccessFor(Username);
+
+
+
+            if (PasswordValue === '') {
+                setErrorFor(Password,'Password cannot be blank');
+                flag = false;
+            }
+            else if(PasswordValue.length > 15) {
+                setErrorFor(Password,'Password cannot be > 15 character');
+                flag = false;
+            }
+            else setSuccessFor(Password);
+
+
+
+            if (PasswordAgainValue === '') {
+                setErrorFor(PasswordAgain,'PasswordAgain cannot be blank');
+                flag = false;
+            }
+            else if(PasswordAgainValue.length > 15) {
+                setErrorFor(PasswordAgain,'Password cannot be > 15 character');
+                flag = false;
+            }
+            else if(PasswordAgainValue !== PasswordValue) {
+                setErrorFor(PasswordAgain,'Password does not match');
+                flag = false;
+            }
+            else setSuccessFor(PasswordAgain);
+
+         
+          }
+
+         function setErrorFor(input, message)
+         {
+            const formControl = input.parentElement; // .form-control
+            const small = formControl.querySelector('small');
+
+            // add error message inside small
+            small.innerText = message;
+
+            // add error class
+            formControl.className = 'form-control error';
+         } 
+
+         function setSuccessFor(input)
+         {
+            const formControl = input.parentElement; // .form-control
+         
+            // add success class
+            formControl.className = 'form-control success';
+         }
+
+         return flag;
+         
     }
  
   </script>

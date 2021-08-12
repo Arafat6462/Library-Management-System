@@ -132,9 +132,8 @@ header:hover{
 
     <header>
 		<div class="logo" >
-	 		<img src="../View/book.png" alt="Logo">
-	 		<!-- <h1 class="title">LIBRARY</h1> -->
-	 		<a class="title" href="../Controller/welcome.php">LIBRARY</a>
+	 		<img src="../View/img/book.png" alt="Logo">
+ 	 		<a class="title" href="../Controller/welcome.php">LIBRARY</a>
 		</div>
  		<nav>
  			<ul class="nav-link">
@@ -149,7 +148,7 @@ header:hover{
 		 		
  		</nav>
   			<div class="setting">
- 				<img src="../View/setting.svg" alt="Setting" title="Settings">
+ 				<img src="../View/img/setting.svg" alt="Setting" title="Settings">
   				<div class="dropdown-content">
 		 			<a href="../Controller/logout.php">Logout </a> 
 					<a class="<?php if($page == 'changepassword'){echo 'active';} ?>" href="../Controller/changePassword.php">Change password </a>	

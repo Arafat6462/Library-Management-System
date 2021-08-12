@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="../View/css/login.css?v <?php echo time(); ?>">
 </head>
 <body>
+    
  	
 	<?php
 
@@ -109,7 +110,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
   <!-- ///////////////////////////////////////////////// -->
   <div class="container">
         <div class="header">
-            <h2> Log-In</h2>
+             <h2> Log-in</h2>
+             <a class="title">LIBRARY</a>
         </div>
 
         <form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" class="form" id="form" method = "POST" onsubmit="return jsValid();">
@@ -141,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
             <button type="submit" name="login">Log In</button>
 
             <span style="color: red"><?php echo $loginFailed; ?></span>
-			<span style="color: green"><?php echo "<br><br><br>click here to <a href = 'signup.php'>Sign-up</a>" ?></span>
+			<span style="color: green"><?php echo "<br><br>click here to <a href = 'signup.php'>Sign-up</a>" ?></span>
 
 
         </form>

@@ -4,7 +4,7 @@
  	<meta charset="UTF-8">
  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
  	<title>Sign-Up</title>
-    <link rel="stylesheet" href="../View/css/signup.css">
+    <link rel="stylesheet" href="../View/css/signup.css?v <?php echo time(); ?>">
  </head>
  <body>
 
@@ -231,7 +231,10 @@
   <div class="container">
         <div class="header">
             <h2>Create Account</h2>
+             <a class="title" href="login.php">LIBRARY</a>
+
         </div>
+
 
         <form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" class="form" id="form" method = "POST" onsubmit="return jsValid();">
             <div class="form-control">
@@ -332,7 +335,7 @@
 
             <div class="form-control">
                 <lable>Personal Website</lable>
-                <input type="url" placeholder="www.arafat.com" id="Website" name="Website" value="<?php echo $Website ?>">
+                <input type="url" placeholder="http://localhost/library" id="Website" name="Website" value="<?php echo $Website ?>">
                 <img class="check" src="../View/img/checked.svg" alt="Checked">
                 <img class="warn" src="../View/img/warn.svg" alt="Error">
                 <small>Error message</small>
@@ -350,7 +353,7 @@
 
             <div class="form-control">
                 <lable>Password</lable>
-                <input type="password" placeholder="Arafat123" id="Password" name="Password" value="<?php echo $Password ?>">
+                <input type="password" placeholder="********" id="Password" name="Password" value="<?php echo $Password ?>">
                 <img class="check" src="../View/img/checked.svg" alt="Checked">
                 <img class="warn" src="../View/img/warn.svg" alt="Error">
                 <small>Error message</small>
@@ -359,7 +362,7 @@
 
             <div class="form-control">
                 <lable>Password check</lable>
-                <input type="password" placeholder="Arafat123" id="PasswordAgain" name="PasswordAgain" value="<?php echo $PasswordAgain ?>">
+                <input type="password" placeholder="********" id="PasswordAgain" name="PasswordAgain" value="<?php echo $PasswordAgain ?>">
                 <img class="check" src="../View/img/checked.svg" alt="Checked">
                 <img class="warn" src="../View/img/warn.svg" alt="Error">
                 <small>Error message</small>
@@ -369,7 +372,7 @@
 
             <button type="submit">Submit</button>
 
-            <span style="color: green"><?php echo "<br><br><br>click here to <a href = 'login.php'>Log-in</a>" ?></span>
+            <span style="color: green"><?php echo "<br><br>click here to <a href = 'login.php'>Log-in</a>" ?></span>
 
         </form>
     </div>

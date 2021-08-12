@@ -30,7 +30,7 @@ header{
 	background-color: rgba(111, 143, 149, .3);/* #CAC9B6;*/
 	/*border-bottom-right-radius: 8px;
 	border-bottom-left-radius: 8px;*/
-	box-shadow: 0 0 10px rgba(50, 50, 50, .8);
+	box-shadow: 0 0 10px rgba(50, 50, 50, .6);
 	z-index: 5;
 	transition: all .9s ease 0s;
 }

@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Update Book Info</title>
+   <link rel="stylesheet" href="../View/css/updatebook.css?v <?php echo time(); ?>">
+
 </head>
 <body>
 
@@ -29,7 +31,7 @@
 
  
 
-	if(isset($_POST['addbook']))
+	if(isset($_POST['updatebook']))
 	{
 
 
@@ -42,35 +44,66 @@
 		$shelfno = $_POST['shelfno'];
 		$bookno = $_POST['bookno'];
  
+ 
 
-      if(empty($bookname) or strlen($bookname) > 100)
+         if(empty($bookname)  )
          {
-            $booknameErr = "bookname can not be empty or > 100 Character.";
+            $booknameErr = "book name can not be empty.";
             $isValid = false;
          }
-      if(empty($authorname) or strlen($bookname) > 50)
+         if( strlen($bookname) > 100)
          {
-            $authornameErr = "authorname can not be empty or > 50 Character.";
+            $booknameErr = "book name can not be > 100 Character.";
             $isValid = false;
          }
-      if(empty($edition) or strlen($bookname) > 10)
+      if(empty($authorname) )
          {
-            $editionErr = "edition can not be empty or > 10 Character.";
+            $authornameErr = "author name can not be empty.";
             $isValid = false;
          }
-      if(empty($numberofcopy) or strlen($bookname) > 10)
+         if( strlen($authorname) > 50)
          {
-            $numberofcopyErr = "numberofcopy can not be empty or > 10 Character.";
+            $authornameErr = "author name can not be > 50 Character.";
             $isValid = false;
          }
-      if(empty($shelfno) or strlen($bookname) > 10)
+      if(empty($edition)  )
          {
-            $shelfnoErr = "shelfno can not be empty or > 10 Character.";
+            $editionErr = "edition can not be empty.";
             $isValid = false;
          }
-      if(empty($bookno) or strlen($bookname) > 10)
+         if( strlen($edition) > 10)
          {
-            $booknoErr = "bookno can not be empty or > 10 Character.";
+            $editionErr = "edition can not be > 10 Character.";
+            $isValid = false;
+         }
+      if(empty($numberofcopy) )
+         {
+            $numberofcopyErr = "number of copy can not be empty.";
+            $isValid = false;
+         }
+         if(strlen($numberofcopy > 10) )
+         {
+            $numberofcopyErr = "number of copy can not be > 10 Character.";
+            $isValid = false;
+         }
+      if(empty($shelfno))
+         {
+            $shelfnoErr = "shelf no can not be empty.";
+            $isValid = false;
+         }
+         if( strlen($shelfno) > 10)
+         {
+            $shelfnoErr = "shelf no can not be > 10 Character.";
+            $isValid = false;
+         }
+      if(empty($bookno))
+         {
+            $booknoErr = "book id can not be empty.";
+            $isValid = false;
+         }
+         if( strlen($bookno) > 10)
+         {
+            $booknoErr = "book id can not be > 10 Character.";
             $isValid = false;
          }
 
@@ -131,7 +164,7 @@
 					$bookno=$book_data[$i]["bookid"];
 
 					session_start(); // book id can't be change
-               $_SESSION['bookid'] = $bookno;
+                    $_SESSION['bookid'] = $bookno;
 				}
 			}
 	}
@@ -169,74 +202,86 @@
 
 
 
-
-<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST" name="UpdateBook" onsubmit="return jsValid();">
-	<style>
-	.center  {
-		margin-left: auto;
-		margin-right: auto;}
-	</style>
-
-	<table class="center">
-		<tbody>
-
-			<tr>
-				<td><label for="bookname">Book Name :<span style="color: red"><?php echo "*"; ?></span></label></td>
-				<td><input type="text" id="bookname" name="bookname" value="<?php echo $bookname ?>">
-				<span style="color: red"> <?php echo $booknameErr; ?> </span>
-				<span id="booknameErr" style="color: red;"></span></td>
-			</tr> 
-
-			<tr>
-				<td><label for="authorname">Author Name:<span style="color: red"><?php echo "*"; ?></span></label></td>
-				<td><input type="text" id="authorname" name="authorname"value="<?php echo $authorname ?>">
-				<span style="color: red"> <?php echo $authornameErr; ?> </span>
-				<span id="authornameErr" style="color: red;"></span></td>
-				</tr> 
-
-			<tr>
-				<td><label for="edition">Edition:<span style="color: red"><?php echo "*"; ?></span></label></td>
-				<td><input type="text" id="edition" name="edition" value="<?php echo $edition ?>">
-				<span style="color: red"> <?php echo $editionErr; ?> </span>
-				<span id="editionErr" style="color: red;"></span></td>
-				</tr> 
-
-			<tr>
-				<td><label for="numberofcopy">Number of Copy:<span style="color: red"><?php echo "*"; ?></span></label></td>
-				<td><input type="text" id="numberofcopy" name="numberofcopy" value="<?php echo $numberofcopy ?>">
-				<span style="color: red"> <?php echo $numberofcopyErr; ?> </span>
-				<span id="numberofcopyErr" style="color: red;"></span></td>
-				</tr> 
-
-			<tr>
-				<td><label for="shelfno">Shelf No:</span></label></td>
-				<td><input type="text" id="shelfno" name="shelfno"value="<?php echo $shelfno ?>">
-				<span style="color: red"> <?php echo $shelfnoErr; ?> </span>
-				<span id="shelfnoErr" style="color: red;"></span></td>
-				</tr> 
-
-			<tr>
-				<td><label for="bookno">Book Id:<span style="color: red"></span></label></td>
-				<td><input type="text" id="bookno" name="bookno" value="<?php echo $bookno ?>"  readonly>
-				<span style="color: red"> <?php echo $booknoErr; ?> </span>
-				<span id="bookidErr" style="color: red;"></span></td>
- 			</tr> 
+ 
 
 
+ <!-- ///////////////////////////////////////////////// -->
+ <div class="body">
+  <div class="container">
+        <div class="header">
+            <h2>Update book</h2>
+        </div>
 
 
-			<tr>
-				<td></td>
-				<td><span style="float: right;"><input type="submit" name="addbook" value="Update Book"></span> </td>
-				<td><span style="color: green; text-align: center;"><?php echo $updateBookSuccess; ?></span>
-					<span style="color: red"><?php echo $updateBookFailed; ?></span></td>
-				</tr>
+        <form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" class="form" id="form" method = "POST"onsubmit="return jsValid();" >
+            <div class="form-control">
+                <lable>Book Name</lable>
+                <input type="text" placeholder="Art of thinking clearly" id="bookname" name="bookname" value="<?php echo $bookname ?>" >
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $booknameErr; ?> </span>
+            </div>  
+ 
+            <div class="form-control">
+                <lable>Author Name</lable>
+                <input type="text" placeholder="Rolf Dobelli" id="authorname" name="authorname" value="<?php echo $authorname ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $authornameErr; ?> </span>
+            </div>  
 
+             <div class="form-control">
+                <lable>Edition</lable>
+                <input type="text" placeholder="1st" id="edition" name="edition" value="<?php echo $edition ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $editionErr; ?> </span>
+            </div> 
 
-			</tbody>
-		</table>
+            <div class="form-control">
+                <lable>Number of Copy</lable>
+                <input type="text" placeholder="2" id="numberofcopy" name="numberofcopy" value="<?php echo $numberofcopy ?>" >
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $numberofcopyErr; ?> </span>
+            </div>  
+ 
+            <div class="form-control">
+                <lable>Shelf No</lable>
+                <input type="text" placeholder="22" id="shelfno" name="shelfno" value="<?php echo $shelfno ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $shelfnoErr; ?> </span>
+            </div>  
 
-	</form>
+             <div class="form-control">
+                <lable>Book Id</lable>
+                <input type="text" placeholder="1001" id="bookno" name="bookno" value="<?php echo $bookno ?>" readonly>
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $booknoErr; ?> </span>
+
+            </div>  
+     
+    
+
+            
+
+             <button type="submit" name="updatebook">Update Book</button>
+             <span style="color: green;"> <?php echo $updateBookSuccess; ?> </span>
+             <span style="color: red"> <?php echo $updateBookFailed; ?> </span>
+ 
+        </form>
+    </div>
+    </div>
+ 
+  <!-- ///////////////////////////////////////////////// -->
 
 
 
@@ -246,47 +291,138 @@
     
     function jsValid() 
     { 
+        const form = document.getElementById('form'); // full form
+        const bookname = document.getElementById('bookname');
+        const authorname = document.getElementById('authorname');
+        const edition = document.getElementById('edition');
+        const numberofcopy = document.getElementById('numberofcopy');
+        const shelfno = document.getElementById('shelfno');
+        const bookno = document.getElementById('bookno');
+
+        console.log(bookno);
+
+         
+        var flag = true;       
+        checkInputs();
+
  
-        var bookname = document.forms["UpdateBook"]["bookname"].value;
-        var authorname = document.forms["UpdateBook"]["authorname"].value;
-        var edition = document.forms["UpdateBook"]["edition"].value;
-        var numberofcopy = document.forms["UpdateBook"]["numberofcopy"].value;
-        var shelfno = document.forms["UpdateBook"]["shelfno"].value;
-        var bookid = document.forms["UpdateBook"]["bookno"].value;
+
+        function checkInputs() 
+        {
+            //get the value from inputs.
+
+            const  booknameValue = bookname.value.trim();   
+            const  authornameValue = authorname.value.trim();   
+            const  editionValue = edition.value.trim();   
+            const  numberofcopyValue = numberofcopy.value.trim();   
+            const  shelfnoValue = shelfno.value.trim();   
+            const  booknoValue = bookno.value.trim();   
+
+            
+
+            if (booknameValue === ''){
+                //show error
+                // add error class
+                setErrorFor(bookname,'Book name cannot be blank');
+                flag = false;
+            }
+            else if(booknameValue.length > 100){
+                setErrorFor(bookname,'Book name cannot be > 100 character');
+                flag = false;
+            }
+            else{
+                // add success class
+                setSuccessFor(bookname);
+            }
+
+
+
+            if (authornameValue === ''){
+                setErrorFor(authorname,'Author name cannot be blank');
+                flag = false;
+            }
+            else if(authornameValue.length > 50) {
+                setErrorFor(authorname,'Author name cannot be > 50 character');
+                flag = false;
+            }
+            else setSuccessFor(authorname);
+
+
+
+            if (editionValue === ''){
+                setErrorFor(edition,'Edition cannot be blank');
+                flag = false;
+            }
+            else if(editionValue.length > 10) {
+                setErrorFor(edition,'Edition cannot be > 10 character');
+                flag = false;
+            }
+            else setSuccessFor(edition);
+
          
 
-        if (bookname === "" || bookname.length > 100) 
-        {
-            document.getElementById('booknameErr').innerHTML = "bookname can not be empty or > 100 Character.";
-            return false;
-        } 
-        if (authorname === "" || authorname.length > 50) 
-        {
-            document.getElementById('authornameErr').innerHTML = "authorname can not be empty or > 50 Character.";
-            return false;
-        } 
-        if (edition === "" || edition.length > 10) 
-        {
-            document.getElementById('editionErr').innerHTML = "edition can not be empty or > 10 Character.";
-            return false;
-        } 
-        if (numberofcopy === "" || numberofcopy.length >10) 
-        {
-            document.getElementById('numberofcopyErr').innerHTML = "numberofcopy can not be empty > 10 Character.";
-            return false;
-        } 
-        if (shelfno === "" || shelfno.length > 10) 
-        {
-            document.getElementById('shelfnoErr').innerHTML = "shelfno can not be empty or > 10 Character.";
-            return false;
-        } 
-        if (bookid === "" || bookid.length > 10) 
-        {
-            document.getElementById('bookidErr').innerHTML = "bookid can not be > 10 Character.";
-            return false;
-        } 
-         
+            if (numberofcopyValue === '') {
+                setErrorFor(numberofcopy,'Number of copy cannot be blank');
+                flag = false;
+            }
+            else if(numberofcopyValue.length > 10) {
+                setErrorFor(numberofcopy,'Number of copy cannot be > 10 character');
+                flag = false;
+            }
+            else setSuccessFor(numberofcopy);
+
  
+
+
+
+            if (shelfnoValue === '') {
+                setErrorFor(shelfno,'Shelf no cannot be blank');
+                flag = false;
+            }
+            else if(shelfnoValue.length > 10) {
+                setErrorFor(shelfno,'Shelf no cannot be > 10 character');
+                flag = false;
+            }
+            else setSuccessFor(shelfno);
+
+
+
+            if (booknoValue === '') {
+                setErrorFor(bookno,'Book Id cannot be blank');
+                flag = false;
+            }
+            else if(booknoValue.length > 10) {
+                setErrorFor(bookno,'Book Id cannot be > 10 character');
+                flag = false;
+            }
+            else setSuccessFor(bookno);
+
+ 
+         
+          }
+
+         function setErrorFor(input, message)
+         {
+            const formControl = input.parentElement; // .form-control
+            const small = formControl.querySelector('small');
+
+            // add error message inside small
+            small.innerText = message;
+
+            // add error class
+            formControl.className = 'form-control error';
+         } 
+
+         function setSuccessFor(input)
+         {
+            const formControl = input.parentElement; // .form-control
+         
+            // add success class
+            formControl.className = 'form-control success';
+         }
+
+         return flag;
+         
     }
  
   </script>

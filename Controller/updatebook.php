@@ -140,9 +140,9 @@
 		$searchID = $_POST['searchid'];
 
 
-		 if(empty(basic_validation($searchID))  or strlen(basic_validation($searchID) > 10))
+		 if(empty(basic_validation($searchID)))
          {
-            $searchIDErr = "searchID can not be empty or > 10 Character.";
+            $searchIDErr = "searchID can not be empty.";
             $isValid = false;
          }
 

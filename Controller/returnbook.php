@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Return Book</title>
+    <link rel="stylesheet" href="../View/css/returnbook.css?v <?php echo time(); ?>">
+
 </head>
 <body>
 
@@ -88,61 +90,101 @@
 }
 
 
- 	?>
+?>
+ 
+ <!-- ///////////////////////////////////////////////// -->
+ <div class="body">
+  <div class="container">
+        <div class="header">
+            <h2>Return Book</h2>
+        </div>
 
 
+        <form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" class="form" id="form" method = "POST"onsubmit="return jsValid();" >
+            <div class="form-control">
+                <lable>Search Student by Id to Return</lable>
+                <input type="text" placeholder="212" id="studentid" name="studentid" value="<?php echo $studentid ?>">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $noborrow; ?> </span>
+                <span style="color: red"> <?php echo $studentnotfound; ?> </span>
+                <span style="color: red"> <?php echo $empty; ?> </span>
+            </div>  
+ 
+            <div class="form-control">
+                <lable>Book id Read only</lable>
+                <input type="text" placeholder="Readonly" id="bookid" name="bookid" value="<?php echo $bookid ?>" readonly>
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+             </div> 
 
- 	<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST" name="ReturnBook" onsubmit="return jsValid();">
-		<h3><span style="padding: 14px 16px;"> Return book</span></h3>
 
-		<style>
-		.center  {
-			margin-left: auto;
-			margin-right: auto;}
-		</style>
+             <button type="submit" value="Return Borrow"  name="returnborrow" >Return Book</button>
+             <span style="color: green;"> <?php echo $ReturnBookSuccess; ?> </span>
 
-
-		<table class="center">
-			<tbody>
-		<tr>
- 			<td><label for="studentid">Search Student by Id to Return :</label></td>
-			<td><input type="text" id="studentid" name="studentid" value="<?php echo $studentid ?>"></td>
- 			<td><span style="color: red"><?php echo $noborrow; ?></span>
- 			<span style="color: red"><?php echo $studentnotfound; ?></span>
- 			<span style="color: red"><?php echo $empty; ?></span>
- 			<span id="studentidErr" style="color: red;"></span></td>
- 		</tr>
-		<tr>
- 			<td><label for="bookid">Book id Read only :</label>
-			<td><input type="text" id="bookid" name="bookid" value="<?php echo $bookid ?>" readonly></td>
- 			 
-		</td>
-
-		<tr>
-			<td> <td><input type="submit" name="returnborrow" value="Return Borrow"></td></td>
-			<td><span style="color: green"><?php echo $ReturnBookSuccess; ?></span></td>
-		</tr>
 
  
-	</tbody>
-</table>
+        </form>
+    </div>
+    </div>
+ 
+  <!-- ///////////////////////////////////////////////// -->
 
 
-	</form>
 
 
 	<script>
-    
-    function jsValid() 
-    { 
-        var studentid = document.forms["ReturnBook"]["studentid"].value;
+  
+     function jsValid() 
+     { 
+        const form = document.getElementById('form'); // full form
+        const studentid = document.getElementById('studentid');
+          
+ 
          
-        if (studentid === "") 
+        var flag = true;       
+        checkInputs();
+
+ 
+
+        function checkInputs() 
         {
-            document.getElementById('studentidErr').innerHTML = "studentid can not be empty.";
-            return false;
-        }  
-     }
+            const  studentidValue = studentid.value.trim();   
+            const  bookidValue = bookid.value.trim();   
+ 
+            if (studentidValue === ''){
+                 setErrorFor(studentid,'Student id cannot be blank');
+                flag = false;
+            }
+             else{
+                 setSuccessFor(studentid);
+            }
+  
+         }
+
+         function setErrorFor(input, message)
+         {
+            const formControl = input.parentElement; // .form-control
+            const small = formControl.querySelector('small');
+
+            small.innerText = message;
+
+            formControl.className = 'form-control error';
+         } 
+
+         function setSuccessFor(input)
+         {
+            const formControl = input.parentElement; // .form-control
+         
+             formControl.className = 'form-control success';
+         }
+
+         return flag;
+         
+    }
+ 
  
   </script>
 

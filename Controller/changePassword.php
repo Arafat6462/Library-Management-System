@@ -4,6 +4,8 @@
  	<meta charset="UTF-8">
  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
  	<title>Change pasword</title>
+   <link rel="stylesheet" href="../View/css/changepassword.css?v <?php echo time(); ?>">
+
  </head>
  <body>
       
@@ -42,16 +44,32 @@
           $f_oldPassErr = "password can not be empty";
           $isValid = false;
        }
+        if(strlen($f_oldPass) > 15)
+        {
+          $f_oldPassErr = "password can not be > 15 Character.";
+          $isValid = false;
+        }
+
       if(empty($f_pass))
        {
           $f_passErr = "password can not be empty";
           $isValid = false;
        }
+       if(strlen($f_pass) > 15)
+        {
+          $f_passErr = "password can not be > 15 Character.";
+          $isValid = false;
+        }
        if(empty($f_newPass))
        {
           $f_newPassErr = "password can not be empty";
           $isValid = false;
        }
+       if(strlen($f_newPass) > 15)
+        {
+          $f_newPassErr = "password can not be > 15 Character.";
+          $isValid = false;
+        }
 
      
  		 $f_oldPass = basic_validation($f_oldPass);
@@ -97,102 +115,162 @@
  
 ?>
 
+ 
+ <!-- ///////////////////////////////////////////////// -->
+ <div class="body">
+  <div class="container">
+        <div class="header">
+            <h2>Change Password</h2>
+        </div>
 
 
-<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST"  name="ChangePassword" onsubmit="return jsValid();" >
+        <form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" class="form" id="form" method = "POST" onsubmit="return jsValid();" >
+            <div class="form-control">
+                <lable>Password</lable>
+                <input type="pasword" placeholder="OldPassword" id="OldPassword" name="OldPassword">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $f_oldPassErr; ?> </span>
+            </div>  
 
- <h2>Change pasword</h2>
-     <style>
-   .center  {
-    margin-left: auto;
-    margin-right: auto;}
-   </style>
+              
+            <div class="form-control">
+                <lable>New Password</lable>
+                <input type="password" placeholder="NewPassword" id="NewPassword" name="NewPassword">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $failed; ?> </span>
+                <span style="color: red"> <?php echo $f_passErr; ?> </span>
+            </div> 
 
+             
+             <div class="form-control">
+                <lable>New Password</lable>
+                <input type="Password" placeholder="Re-Enter New Password" id="NewPasswordAgain" name="NewPasswordAgain">
+                <img class="check" src="../View/img/checked.svg" alt="Checked">
+                <img class="warn" src="../View/img/warn.svg" alt="Error">
+                <small>Error message</small>
+                <span style="color: red"> <?php echo $f_newPassErr; ?> </span>
+            </div> 
+ 
+            
 
-    <table class="center">
+            
 
-       <tbody>
-
-      <tr>
-       <td><label for="Password">Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
-       <td><input type="Password" id="OldPassword" name="OldPassword" placeholder="Old Password">
-      <span style="color: red"> <?php echo $f_oldPassErr; ?> </span>
-      <span id="OldPasswordErr" style="color: red;"></span></td>
-       </tr>
-
-
-       <tr>
-       <td><label for="Password">New Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
-       <td><input type="Password" id="NewPassword" name="NewPassword" placeholder="New Password">
-       <span style="color: red"><?php echo $failed; ?></span>
-       <span style="color: red"> <?php echo $f_passErr; ?> </span>
-       <span id="NewPasswordErr" style="color: red;"></span></td>
-       </tr>
-
-       <tr>
-       <td><label for="PasswordAgain">New Password:<span style="color: red"><?php echo "*"; ?></span></label></td>
-       <td><input type="Password" id="NewPasswordAgain" name="NewPasswordAgain" placeholder="Re-Enter New Password">
-      <span style="color: red"> <?php echo $f_newPassErr; ?> </span>
-      <span id="NewPasswordAgainErr" style="color: red;"></span></td>
-       </tr>
-
-       <tr><td></td>
-       <td><span><input type="submit" value="Change Pasword"></span></td>
-       <td> <span style="color: green"><?php echo $changePassSuccess; ?></span></td>
-       <td> <span style="color: red"><?php echo $changePassFail; ?></span></td>
-
-
-    </tbody>
- </table>
+             <button type="submit" value="Change Pasword">Change Pasword</button>
+             <span style="color: green;"> <?php echo $changePassSuccess; ?> </span>
+             <span style="color: red"> <?php echo $changePassFail; ?> </span>
 
  
+        </form>
+    </div>
+    </div>
+ 
+  <!-- ///////////////////////////////////////////////// -->
 
-
-
-   <span style="color: green;"><?php echo "<br><br><br>click here to <a href = 'welcome.php'>Go Back</a>" ?></span>
-
-
-
-</h3>
-
-
-</form>
 
 
 
 
 
   <script>
-    
+
     function jsValid() 
     { 
-  
-        var OldPassword = document.forms["ChangePassword"]["OldPassword"].value;
-        var NewPassword = document.forms["ChangePassword"]["NewPassword"].value;
-        var NewPasswordAgain = document.forms["ChangePassword"]["NewPasswordAgain"].value;
-  
+        const form = document.getElementById('form'); // full form
+        const OldPassword = document.getElementById('OldPassword');
+        const NewPassword = document.getElementById('NewPassword');
+        const NewPasswordAgain = document.getElementById('NewPasswordAgain');
+        
  
-        
-        if (OldPassword === "" ) 
-        {
-            document.getElementById('OldPasswordErr').innerHTML = "Password can not be empty.";
-            return false;
-        } 
+         
+        var flag = true;       
+        checkInputs();
 
-        if (NewPassword === "" ) 
-        {
-            document.getElementById('NewPasswordErr').innerHTML = "New password can not be empty.";
-            return false;
-        } 
+ 
 
-        if (NewPasswordAgain === "" ) 
+        function checkInputs() 
         {
-            document.getElementById('NewPasswordAgainErr').innerHTML = "Again password can not be empty.";
-            return false;
-        } 
-        
+            //get the value from inputs.
+
+            const  OldPasswordValue = OldPassword.value.trim();   
+            const  NewPasswordValue = NewPassword.value.trim();   
+            const  NewPasswordAgainValue = NewPasswordAgain.value.trim();   
+           
+
+            if (OldPasswordValue === ''){
+                //show error
+                // add error class
+                setErrorFor(OldPassword,'Password cannot be blank');
+                flag = false;
+            }
+            else if(OldPasswordValue.length > 15){
+                setErrorFor(OldPassword,'Password cannot be > 15 character');
+                flag = false;
+            }
+            else{
+                // add success class
+                setSuccessFor(OldPassword);
+            }
+
+
+
+            if (NewPasswordValue === ''){
+                setErrorFor(NewPassword,'New Password cannot be blank');
+                flag = false;
+            }
+            else if(NewPasswordValue.length > 15) {
+                setErrorFor(NewPassword,'New Password cannot be > 15 character');
+                flag = false;
+            }
+            else setSuccessFor(NewPassword);
+
+
+
+            if (NewPasswordAgainValue === ''){
+                setErrorFor(NewPasswordAgain,'Re-Enter Password cannot be blank');
+                flag = false;
+            }
+            else if(NewPasswordAgainValue.length > 15) {
+                setErrorFor(NewPasswordAgain,'Re-Enter Password cannot be > 15 character');
+                flag = false;
+            }
+            else if(NewPasswordAgainValue !== NewPasswordValue) {
+                setErrorFor(NewPasswordAgain,'Password does not match');
+                flag = false;
+            }
+            else setSuccessFor(NewPasswordAgain);
+ 
+         
+          }
+
+         function setErrorFor(input, message)
+         {
+            const formControl = input.parentElement; // .form-control
+            const small = formControl.querySelector('small');
+
+            // add error message inside small
+            small.innerText = message;
+
+            // add error class
+            formControl.className = 'form-control error';
+         } 
+
+         function setSuccessFor(input)
+         {
+            const formControl = input.parentElement; // .form-control
+         
+            // add success class
+            formControl.className = 'form-control success';
+         }
+
+         return flag;
+         
     }
  
+    
   </script>
 
 

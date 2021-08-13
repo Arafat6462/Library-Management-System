@@ -183,21 +183,14 @@
  
 	?>
 
-
+<div class="box">
 	<form action="<?php echo htmlspecialchars(($_SERVER['PHP_SELF'])); ?>" method = "POST"  name="SearchBook" onsubmit="return jsIdValid();">
-		<h3><span style="padding: 14px 16px;"> Updatae book</span></h3>
-
-		<span style="padding: 14px 16px;">
-			<label for="searchid">Search by Book Id:</label>
-			<input type="text" id="searchid" name="searchid" value="<?php echo $searchID ?>">
-			<input type="submit" name="search" value="search">
-			<span style="color: red"> <?php echo $searchIDErr; ?></span>
-			<span id="searchidErr" style="color: red;"></span>
-
-		</span>
-
-
-	</form>
+     	<input class="text" type="text" id="searchid"placeholder="Search book with ID" name="searchid" value="<?php echo $searchID ?>">
+    	<input class="submit" type="submit" name="search" value="search"><br><br>
+    	<span style="color: red"> <?php echo $searchIDErr; ?></span>
+    	<span id="searchidErr" style="color: red;"></span>
+ 	</form>
+</div>
 
 
 
@@ -434,9 +427,14 @@
     { 
         var searchid = document.forms["SearchBook"]["searchid"].value;
         
-        if (searchid === "" || searchid.length > 10) 
+        if (searchid === "") 
         {
-            document.getElementById('searchidErr').innerHTML = "searchid can not be empty or > 10 Character.";
+            document.getElementById('searchidErr').innerHTML = "searchid can not be empty.";
+            return false;
+        }
+        if (searchid.length > 10) 
+        {
+            document.getElementById('searchidErr').innerHTML = "searchid can not be > 10 Character.";
             return false;
         } 
     }

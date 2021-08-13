@@ -16,8 +16,7 @@
 	?>
 
 
-	<h3><span style="padding: 14px 16px;"> Borroyw History</span></h3>
-	
+ 	
 	<div class="table">
 	<table>
 		<thead>

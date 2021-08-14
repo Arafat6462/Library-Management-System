@@ -23,7 +23,7 @@
 
     // header file.
     $page = 'changepassword';
-    include('../View/css/header.php');
+    include('../View/html/header.php');
     include('../Model/dbupdatepassword.php');
 
  	// session_start();
@@ -180,7 +180,7 @@
 
 <?php
 // footer file.
-include('../View/css/footer.html');
+include('../View/html/footer.html');
 ?>
 
 </body>

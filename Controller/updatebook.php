@@ -20,7 +20,7 @@
 
 	// header file.
 	$page = 'updatebook';
-	include('../View/css/header.php');
+	include('../View/html/header.php');
 	include('../Model/dbbook.php');
 
 	$searchID = "";
@@ -286,7 +286,7 @@
 
 		<?php
 		// header file.
-		include('../View/css/footer.html');
+		include('../View/html/footer.html');
 		?>
 
 	</body>

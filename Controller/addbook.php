@@ -20,7 +20,7 @@
         header("location:login.php");
 
    $page = 'addbook';
-   include('../View/css/header.php');
+   include('../View/html/header.php');
    include('../Model/dbbook.php');
  
 
@@ -231,7 +231,7 @@
  
 <?php
 // footer file.
-include('../View/css/footer.html');
+include('../View/html/footer.html');
 ?>
 
 </body>

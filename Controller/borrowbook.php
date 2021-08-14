@@ -18,7 +18,7 @@
 		header("location:login.php");
 
 	$page = 'borrowbook';
- 	include('../View/css/header.php');
+ 	include('../View/html/header.php');
  	include('../Model/dbborrowbook.php');
 
  	$bookid = "";
@@ -171,7 +171,7 @@
   <!-- ///////////////////////////////////////////////// -->
 
 	<?php
- 	include('../View/css/footer.html');
+ 	include('../View/html/footer.html');
 	?>
 </body>
 </html>

@@ -16,7 +16,7 @@
 		header("location:login.php");
 
  	$page = 'borrowhistory';
-	include('../View/css/header.php');
+	include('../View/html/header.php');
 	include '../Model/dbborrowbook.php';
 	$bookList = getBorrowHistory();
 	?>
@@ -69,6 +69,6 @@
  
 
 
-<?php include('../View/css/footer.html');?>
+<?php include('../View/html/footer.html');?>
 </body>
 </html>

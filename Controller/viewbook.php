@@ -53,7 +53,7 @@
 
 	<?php
  	$page = 'viewbook';
-	include('../View/css/header.php');
+	include('../View/html/header.php');
 	?>
 
 
@@ -99,6 +99,6 @@
 	</table>
 	</div>
 
-<?php include('../View/css/footer.html');?>
+<?php include('../View/html/footer.html');?>
 </body>
 </html>

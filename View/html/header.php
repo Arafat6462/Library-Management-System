@@ -152,6 +152,7 @@ header:hover{
   				<div class="dropdown-content">
 		 			<a href="../Controller/logout.php">Logout </a> 
 					<a class="<?php if($page == 'changepassword'){echo 'active';} ?>" href="../Controller/changePassword.php">Change password </a>	
+					<a class="<?php if($page == 'updateprofile'){echo 'active';} ?>" href="../Controller/updateprofile.php">Update Profile </a>	
  				</div>
  			</div>
 	</header>

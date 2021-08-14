@@ -17,14 +17,14 @@
  
 	// header file.
 	 $page = 'welcome';
-	 include('../View/css/header.php');
+	 include('../View/html/header.php');
 
 	// session_start();
 	echo "welcome  ".$_SESSION['s_id'];
  
  
  	// footer file.
-	include('../View/css/footer.html');
+	include('../View/html/footer.html');
 	
 
 	?>

@@ -19,7 +19,7 @@
         header("location:login.php");
 
 	$page = 'returnbook';
- 	include('../View/css/header.php');
+ 	include('../View/html/header.php');
  	include('../Model/dbreturnbook.php');
 
 
@@ -141,7 +141,7 @@
   <!-- ///////////////////////////////////////////////// -->
 
  	<?php
- 	include('../View/css/footer.html');
+ 	include('../View/html/footer.html');
  	?>
 	
 </body>

@@ -138,9 +138,9 @@ header:hover{
  		<nav>
  			<ul class="nav-link">
  				<li><a class="<?php if($page == 'welcome'){echo 'active';} ?>" href="../Controller/welcome.php">Home</a></li> 
-				<li><a class="<?php if($page == 'addbook'){echo 'active';} ?>" href="../Controller/addbook.php">Add new books</a></li> 
 				<li><a class="<?php if($page == 'viewbook'){echo 'active';} ?>" href="../Controller/viewbook.php">View all books</a></li>  
 				<li><a class="<?php if($page == 'updatebook'){echo 'active';} ?>" href="../Controller/updatebook.php">Update book info</a></li>    
+				<li><a class="<?php if($page == 'addbook'){echo 'active';} ?>" href="../Controller/addbook.php">Add new books</a></li> 
 				<li><a class="<?php if($page == 'borrowbook'){echo 'active';} ?>" href="../Controller/borrowbook.php">Borrow book</a></li>  
 				<li><a class="<?php if($page == 'returnbook'){echo 'active';} ?>" href="../Controller/returnbook.php ">Return book</a></li>  
 				<li><a class="<?php if($page == 'borrowhistory'){echo 'active';} ?>" href=" ../Controller/borrowhistory.php ">Borrows history</a></li>  

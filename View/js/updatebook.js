@@ -136,20 +136,55 @@
     }
   
     
-    function jsIdValid() 
+    function jsIdValid_get() 
     { 
         var searchid = document.forms["SearchBook"]["searchid"].value;
+        var flag = true;
         
         if (searchid === "") 
         {
             document.getElementById('searchidErr').innerHTML = "searchid can not be empty.";
-            return false;
+            flag = false;
         }
         if (searchid.length > 10) 
         {
             document.getElementById('searchidErr').innerHTML = "searchid can not be > 10 Character.";
-            return false;
+            flag = false;
         } 
+
+
+
+
+
+
+        if (flag) 
+        {
+            var req = new XMLHttpRequest(); 
+            req.open("GET","http://localhost/wt/library/Controller/updatebookaction.php?searchid="+searchid,true);
+            req.send();
+
+            req.onreadystatechange=function()
+            {
+                if(req.readyState == 4 && req.status==200)
+                { 
+                   var jsonParse = JSON.parse(this.responseText);
+                      
+                    for (var i = 0; i < jsonParse.length; i++) 
+                    {
+                        var object = jsonParse[i];
+                        for (var property in object) 
+                          {
+                             document.getElementById(property).value = object[property];
+                          }
+                    }
+                     
+
+
+                }
+
+            }
+
+        }
     }
  
- 
+  

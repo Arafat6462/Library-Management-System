@@ -5,13 +5,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Return Book</title>
     <link rel="stylesheet" href="../View/css/returnbook.css?v <?php echo time(); ?>">
+    <script src="../View/js/returnbook.js"></script>
+
 
 </head>
 <body>
 
 	<?php
+
+    /// redirect login for no session
+    session_start();
+    if(!isset($_SESSION['s_id']))
+        header("location:login.php");
+
 	$page = 'returnbook';
- 	include('../View/header.php');
+ 	include('../View/css/header.php');
  	include('../Model/dbreturnbook.php');
 
 
@@ -132,66 +140,8 @@
  
   <!-- ///////////////////////////////////////////////// -->
 
-
-
-
-	<script>
-  
-     function jsValid() 
-     { 
-        const form = document.getElementById('form'); // full form
-        const studentid = document.getElementById('studentid');
-          
- 
-         
-        var flag = true;       
-        checkInputs();
-
- 
-
-        function checkInputs() 
-        {
-            const  studentidValue = studentid.value.trim();   
-            const  bookidValue = bookid.value.trim();   
- 
-            if (studentidValue === ''){
-                 setErrorFor(studentid,'Student id cannot be blank');
-                flag = false;
-            }
-             else{
-                 setSuccessFor(studentid);
-            }
-  
-         }
-
-         function setErrorFor(input, message)
-         {
-            const formControl = input.parentElement; // .form-control
-            const small = formControl.querySelector('small');
-
-            small.innerText = message;
-
-            formControl.className = 'form-control error';
-         } 
-
-         function setSuccessFor(input)
-         {
-            const formControl = input.parentElement; // .form-control
-         
-             formControl.className = 'form-control success';
-         }
-
-         return flag;
-         
-    }
- 
- 
-  </script>
-
-
-
  	<?php
- 	include('../View/footer.html');
+ 	include('../View/css/footer.html');
  	?>
 	
 </body>

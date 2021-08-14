@@ -1,5 +1,10 @@
 	<?php 
 
+	/// redirect login for no session
+	session_start();
+	if(!isset($_SESSION['s_id']))
+		header("location:login.php");
+
 			$success = $failed = "";
  			include '../Model/dbbook.php';
 			if(empty(basic_validation($_GET['bookid'])))
@@ -41,12 +46,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>View books</title>
 	<link rel="stylesheet" href="../View/css/viewbook.css?v <?php echo time(); ?>">
+    <script src="../View/js/viewbook.js"></script>
+
 </head>
 <body>
 
 	<?php
  	$page = 'viewbook';
-	include('../View/header.php');
+	include('../View/css/header.php');
 	?>
 
 
@@ -92,64 +99,6 @@
 	</table>
 	</div>
 
-
-	<div  ></div>
-
-	 
-
-	<script>
- 		function getResult(data)
- 		{
- 			// alert(data.bookid.value);
- 			var req = new XMLHttpRequest();	
- 			req.open("GET","http://localhost/wt/library/Controller/viewbookaction.php?datavalue="+data.bookid.value,true); // data is a value of key datavalue.
- 			req.send();
-
- 			req.onreadystatechange=function()
- 			{
- 				if(req.readyState == 4 && req.status==200)
- 				{
- 					// alert(req.responseText);
- 					document.getElementById('result').innerHTML = req.responseText;
- 					// document.getElementById('result').innerHTML = JSON.parse(this.responseText);
- 					// console.log(JSON.parse(this.responseText));
- 					console.log(req.responseText);
- 				}
-
- 			}
- 		}
-
-
-
- 		function deleteFunction(id)
- 		{
- 			console.log("delete button");
- 			console.log(id);
- 			 
-
- 			var req = new XMLHttpRequest();	
- 			req.open("GET","http://localhost/wt/library/Controller/viewbookactiondelete.php?id="+id,true); // data is a value of key datavalue.
- 			req.send();
-
- 			req.onreadystatechange=function()
- 			{
- 				if(req.readyState == 4 && req.status==200)
- 				{
- 					// alert(req.responseText);
- 					document.getElementById('update').innerHTML = req.responseText;
- 					// document.getElementById('result').innerHTML = JSON.parse(this.responseText);
- 					// console.log(JSON.parse(this.responseText));
- 					console.log(req.responseText);
- 				}
-
- 			}
- 		}
-  		
- 	</script>
-
- 
-
-
-<?php include('../View/footer.html');?>
+<?php include('../View/css/footer.html');?>
 </body>
 </html>

@@ -8,17 +8,23 @@
 <body>
  
 	<?php
+	/// redirect login for no session
+	session_start();
+	if(!isset($_SESSION['s_id']))
+		header("location:login.php");
 
+
+ 
 	// header file.
 	 $page = 'welcome';
-	 include('../View/header.php');
+	 include('../View/css/header.php');
 
-	session_start();
+	// session_start();
 	echo "welcome  ".$_SESSION['s_id'];
  
  
  	// footer file.
-	include('../View/footer.html');
+	include('../View/css/footer.html');
 	
 
 	?>

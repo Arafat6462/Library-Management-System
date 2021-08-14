@@ -4,13 +4,19 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Borrow history</title>
-	<link rel="stylesheet" href="../View/borrowhistory.css?v <?php echo time(); ?>">
+	<link rel="stylesheet" href="../View/css/borrowhistory.css?v <?php echo time(); ?>">
 </head>
 <body>
 
 	<?php
+
+	/// redirect login for no session
+	session_start();
+	if(!isset($_SESSION['s_id']))
+		header("location:login.php");
+
  	$page = 'borrowhistory';
-	include('../View/header.php');
+	include('../View/css/header.php');
 	include '../Model/dbborrowbook.php';
 	$bookList = getBorrowHistory();
 	?>
@@ -63,6 +69,6 @@
  
 
 
-<?php include('../View/footer.html');?>
+<?php include('../View/css/footer.html');?>
 </body>
 </html>

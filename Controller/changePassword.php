@@ -4,7 +4,10 @@
  	<meta charset="UTF-8">
  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
  	<title>Change pasword</title>
-   <link rel="stylesheet" href="../View/css/changepassword.css?v <?php echo time(); ?>">
+    <link rel="stylesheet" href="../View/css/changepassword.css?v <?php echo time(); ?>">
+    <script src="../View/js/changepassword.js"></script>
+
+
 
  </head>
  <body>
@@ -13,12 +16,17 @@
 
  	<?php
 
+    /// redirect login for no session
+    session_start();
+    if(!isset($_SESSION['s_id']))
+        header("location:login.php");
+
     // header file.
     $page = 'changepassword';
-    include('../View/header.php');
+    include('../View/css/header.php');
     include('../Model/dbupdatepassword.php');
 
- 	session_start();
+ 	// session_start();
  	$s_id = $_SESSION['s_id'];
  	$s_pass = $_SESSION['s_pass'];
  	$failed = "";
@@ -170,113 +178,9 @@
  
   <!-- ///////////////////////////////////////////////// -->
 
-
-
-
-
-
-  <script>
-
-    function jsValid() 
-    { 
-        const form = document.getElementById('form'); // full form
-        const OldPassword = document.getElementById('OldPassword');
-        const NewPassword = document.getElementById('NewPassword');
-        const NewPasswordAgain = document.getElementById('NewPasswordAgain');
-        
- 
-         
-        var flag = true;       
-        checkInputs();
-
- 
-
-        function checkInputs() 
-        {
-            //get the value from inputs.
-
-            const  OldPasswordValue = OldPassword.value.trim();   
-            const  NewPasswordValue = NewPassword.value.trim();   
-            const  NewPasswordAgainValue = NewPasswordAgain.value.trim();   
-           
-
-            if (OldPasswordValue === ''){
-                //show error
-                // add error class
-                setErrorFor(OldPassword,'Password cannot be blank');
-                flag = false;
-            }
-            else if(OldPasswordValue.length > 15){
-                setErrorFor(OldPassword,'Password cannot be > 15 character');
-                flag = false;
-            }
-            else{
-                // add success class
-                setSuccessFor(OldPassword);
-            }
-
-
-
-            if (NewPasswordValue === ''){
-                setErrorFor(NewPassword,'New Password cannot be blank');
-                flag = false;
-            }
-            else if(NewPasswordValue.length > 15) {
-                setErrorFor(NewPassword,'New Password cannot be > 15 character');
-                flag = false;
-            }
-            else setSuccessFor(NewPassword);
-
-
-
-            if (NewPasswordAgainValue === ''){
-                setErrorFor(NewPasswordAgain,'Re-Enter Password cannot be blank');
-                flag = false;
-            }
-            else if(NewPasswordAgainValue.length > 15) {
-                setErrorFor(NewPasswordAgain,'Re-Enter Password cannot be > 15 character');
-                flag = false;
-            }
-            else if(NewPasswordAgainValue !== NewPasswordValue) {
-                setErrorFor(NewPasswordAgain,'Password does not match');
-                flag = false;
-            }
-            else setSuccessFor(NewPasswordAgain);
- 
-         
-          }
-
-         function setErrorFor(input, message)
-         {
-            const formControl = input.parentElement; // .form-control
-            const small = formControl.querySelector('small');
-
-            // add error message inside small
-            small.innerText = message;
-
-            // add error class
-            formControl.className = 'form-control error';
-         } 
-
-         function setSuccessFor(input)
-         {
-            const formControl = input.parentElement; // .form-control
-         
-            // add success class
-            formControl.className = 'form-control success';
-         }
-
-         return flag;
-         
-    }
- 
-    
-  </script>
-
-
 <?php
 // footer file.
-include('../View/footer.html');
+include('../View/css/footer.html');
 ?>
 
 </body>

@@ -16,7 +16,7 @@
     /// redirect login for no session
     session_start();
     if(!isset($_SESSION['s_id']))
-        header("location:login.php");
+        header("location:../");
 
 	// header file.
 	$page = 'updatebook';
@@ -128,8 +128,8 @@
  
       if($isValid)
       {
-			session_start();
-			$bookid = $_SESSION['bookid']; // not changing book id
+			// session_start();
+			// $bookid = $_SESSION['bookid']; // not changing book id
  
 
 			// update book ifno.

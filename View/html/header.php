@@ -14,7 +14,7 @@
 	font-family: Verdana;
 }
 body{
-	background-color: #ebebef/* #F4F9F9*/;
+	background-color: #ebf5fc/* #F4F9F9*/;
 	min-height: calc(100vh);
 }
 a, h1, li, button{

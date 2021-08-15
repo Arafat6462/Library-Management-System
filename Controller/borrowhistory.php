@@ -13,7 +13,7 @@
 	/// redirect login for no session
 	session_start();
 	if(!isset($_SESSION['s_id']))
-		header("location:login.php");
+		header("location:../");
 
  	$page = 'borrowhistory';
 	include('../View/html/header.php');

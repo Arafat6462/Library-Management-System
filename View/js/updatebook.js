@@ -7,7 +7,7 @@
         const edition = document.getElementById('edition');
         const numberofcopy = document.getElementById('numberofcopy');
         const shelfno = document.getElementById('shelfno');
-        const bookno = document.getElementById('bookno');
+        const bookno = document.getElementById('bookid');
 
         console.log(bookno);
 

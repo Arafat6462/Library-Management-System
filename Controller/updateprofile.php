@@ -16,7 +16,7 @@
      /// redirect login for no session
     session_start();
     if(!isset($_SESSION['s_id']))
-        header("location:login.php");
+        header("location:../");
 
     // header file.
     $page = 'updateprofile';
